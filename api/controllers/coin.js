@@ -117,7 +117,7 @@ const likeCoin = errorWrapper(async (req, res, next) => {
   const coin = await Coin.findById(coin_id);
 
   if (coin.likes.includes(req.user.id)) {
-    return next(new CustomError("You already liked this answer", 400));
+    return next(new CustomError("You already liked this ", 400));
   }
   coin.likes.push(req.user.id);
   coin.likeCount += 1;
@@ -136,7 +136,7 @@ const undoLikeCoin = errorWrapper(async (req, res, next) => {
 
   if (!coin.likes.includes(req.user.id)) {
     return next(
-      new CustomError("You can not undo like operation for this answer", 400)
+      new CustomError("You can not undo like operation for this", 400)
     );
   }
   const index = coin.likes.indexOf(req.user.id);

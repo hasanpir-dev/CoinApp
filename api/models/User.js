@@ -72,20 +72,7 @@ UserSchema.methods.getTokenFromUserModel = function () {
 
   return token;
 };
-// UserSchema.methods.getResetPasswordToken = function () {
-//   const randomHexString = crypto.randomBytes(15).toString("hex");
-//
-//   const resetPasswordToken = crypto
-//     .createHash("SHA256")
-//     .update(randomHexString)
-//     .digest("hex");
-//
-//   this.resetPasswordToken = resetPasswordToken;
-//   this.resetPasswordExpire =
-//     Date.now() + parseInt(process.env.RESET_PASSWORD_EXPIRE);
-//
-//   return resetPasswordToken;
-// };
+
 UserSchema.pre("save", function (next) {
   if (!this.isModified("password")) {
     next();
@@ -99,10 +86,5 @@ UserSchema.pre("save", function (next) {
     });
   });
 });
-// UserSchema.post("remove", async function (next) {
-//   const result = await Question.deleteMany({
-//     user: this._id,
-//   });
-// });
 
 module.exports = mongoose.model("User", UserSchema);
