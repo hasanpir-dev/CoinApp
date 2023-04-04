@@ -12,42 +12,42 @@ const CoinSchema = new Schema({
   },
   faceValue: {
     type: String,
-    // required: [true, "Please provide a value"],
+    required: [true, "Please provide a value"],
   },
   year: {
     type: Number,
-    // required: [true, "Please provide a year"],
+    required: [true, "Please provide a year"],
   },
   price: {
     type: Number,
-    // required: [true, "Please provide a price"],
+    required: [true, "Please provide a price"],
   },
   country: {
     type: String,
-    // required: [true, "Please provide a country"],
+    required: [true, "Please provide a country"],
   },
   metal: {
     type: String,
-    // required: [true, "Please provide a metal"],
+    required: [true, "Please provide a metal"],
   },
   shortDesc: {
     type: String,
     required: [true, "Please provide a short description"],
-    minlength: [10, "Please provide a description at least 10 characters"],
+    minlength: [8, "Please provide a description at least 10 characters"],
   },
   longDesc: {
     type: String,
-    // required: [true, "Please provide a description"],
-    // minlength: [10, "Please provide a long description at least 10 characters"],
+    required: [true, "Please provide a description"],
+    minlength: [16, "Please provide a long description at least 10 characters"],
   },
   quality: {
     type: String,
-    // required: [true, "Please provide a quality"],
+    required: [true, "Please provide a quality"],
   },
 
   weight: {
     type: String,
-    // required: [true, "Please provide a weight"],
+    required: [true, "Please provide a weight"],
   },
 
   imgObverse: {
@@ -56,7 +56,7 @@ const CoinSchema = new Schema({
   },
   imgReverse: {
     type: String,
-    // required: [true, "Please provide a reverse image"],
+    required: [true, "Please provide a reverse image"],
   },
   slug: String,
   createdAt: {
