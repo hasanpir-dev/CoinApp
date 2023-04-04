@@ -57,7 +57,7 @@ const deleteCategory = errorWrapper(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    message: "Question deleted successfully",
+    message: "Category deleted successfully",
   });
 });
 
