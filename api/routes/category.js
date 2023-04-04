@@ -21,9 +21,6 @@ const coin = require("./coin");
 
 const router = express.Router();
 
-// Ask New Question
-// Permissions - Only Logged In Users
-
 router.get("/", getAllCategories);
 
 router.get("/:id", getSingleCategory);
