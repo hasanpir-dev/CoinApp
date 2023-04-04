@@ -49,7 +49,7 @@ const getCommentsByCoin = errorWrapper(async (req, res, next) => {
   });
 });
 
-const getUserComments = errorWrapper(async (req, res, next) => {
+const getUserComments = errorWrapper(async (req, res) => {
   const { user_id } = req.params;
 
   const comments = await Comment.find({ user: user_id }).populate({
