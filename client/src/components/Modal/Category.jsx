@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import "./modal.css";
 import { GrClose } from "react-icons/gr";
-import { changeCategoryModal } from "../../futures/editModalSlice.js";
+import { changeCategoryModal } from "../../features/editModalSlice.js";
 import { useDispatch, useSelector } from "react-redux";
-import { addCategory } from "../../futures/category/categoryActions.js";
-import { addCategoryState } from "../../futures/category/categorySlice.js";
+import { addCategory } from "../../features/category/categoryActions.js";
+import { addCategoryState } from "../../features/category/categorySlice.js";
 
 const CategoryModal = () => {
   const [data, setData] = useState({

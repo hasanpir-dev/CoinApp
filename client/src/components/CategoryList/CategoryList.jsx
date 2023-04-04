@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Category from "./Category.jsx";
 import { useDispatch, useSelector } from "react-redux";
-import { getCategories } from "../../futures/category/categoryActions.js";
+import { getCategories } from "../../features/category/categoryActions.js";
 import Spinner from "../Spinner/Spinner.jsx";
 
 const CategoryList = () => {

@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import {
   changeSignInModal,
   changeSignUpModal,
-} from "../../futures/auth/authSlice.js";
+} from "../../features/auth/authSlice.js";
 
 const AuthHeader = () => {
   const dispatch = useDispatch();

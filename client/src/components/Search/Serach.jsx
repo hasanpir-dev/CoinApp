@@ -2,7 +2,7 @@ import React from "react";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import Filter from "../Filter/Filter.jsx";
 import { useDispatch, useSelector } from "react-redux";
-import { changeFilterModal } from "../../futures/editModalSlice.js";
+import { changeFilterModal } from "../../features/editModalSlice.js";
 
 const Search = () => {
   const dispatch = useDispatch();

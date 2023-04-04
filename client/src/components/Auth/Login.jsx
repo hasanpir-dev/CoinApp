@@ -3,10 +3,10 @@ import { useFormik } from "formik";
 import { userLoginSchema } from "../../schemas/index.js";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { userLogin } from "../../futures/auth/authActions.js";
+import { userLogin } from "../../features/auth/authActions.js";
 import Spinner from "../Spinner/Spinner.jsx";
 import { GrClose } from "react-icons/gr";
-import { changeSignInModal } from "../../futures/auth/authSlice.js";
+import { changeSignInModal } from "../../features/auth/authSlice.js";
 
 const Login = ({ signUp, setSignUp }) => {
   const { loading, userInfo } = useSelector((state) => state.auth);

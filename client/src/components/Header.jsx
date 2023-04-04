@@ -1,9 +1,9 @@
 import React from "react";
 import { AiOutlineLogout } from "react-icons/ai";
 import { useDispatch } from "react-redux";
-import { logout } from "../futures/auth/authSlice.js";
+import { logout } from "../features/auth/authSlice.js";
 import { useNavigate } from "react-router-dom";
-import { changeEditModal } from "../futures/editModalSlice.js";
+import { changeEditModal } from "../features/editModalSlice.js";
 import Login from "./Auth/Login.jsx";
 
 const Header = () => {

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
 
 const Filter = () => {
   const [data, setData] = useState({
@@ -16,7 +15,7 @@ const Filter = () => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
-//coins?title=name&year=2000,2010&price=500,1000&country=country&metal=gold&quality=gold
+  //coins?title=name&year=2000,2010&price=500,1000&country=country&metal=gold&quality=gold
 
   return (
     <div className="flex items-center">

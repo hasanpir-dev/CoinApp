@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
-import { changeCoinListModal } from "../../futures/editModalSlice.js";
+import { changeCoinListModal } from "../../features/editModalSlice.js";
 import { useDispatch, useSelector } from "react-redux";
-import { getCoins } from "../../futures/coin/coinActions.js";
+import { getCoins } from "../../features/coin/coinActions.js";
 import { Link, useNavigate } from "react-router-dom";
 
 const Category = ({ title, image, _id }) => {

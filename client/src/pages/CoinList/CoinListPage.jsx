@@ -1,6 +1,6 @@
 import Coin from "../../components/Coinlist/Coin/Coin.jsx";
 import { useEffect } from "react";
-import { getCoins } from "../../futures/coin/coinActions.js";
+import { getCoins } from "../../features/coin/coinActions.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Spinner from "../../components/Spinner/Spinner.jsx";

@@ -2,10 +2,10 @@ import { useDispatch } from "react-redux";
 import {
   changeEditModal,
   changeCategoryModal,
-} from "../../futures/editModalSlice.js";
+} from "../../features/editModalSlice.js";
 import { AiOutlineLogout } from "react-icons/ai";
 import React from "react";
-import { logout } from "../../futures/auth/authSlice.js";
+import { logout } from "../../features/auth/authSlice.js";
 
 const ProfileHeader = () => {
   const dispatch = useDispatch();

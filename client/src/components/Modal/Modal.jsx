@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "./modal.css";
 import { GrClose } from "react-icons/gr";
-import { changeEditModal } from "../../futures/editModalSlice.js";
+import { changeEditModal } from "../../features/editModalSlice.js";
 import { useDispatch, useSelector } from "react-redux";
-import { addCoin } from "../../futures/coin/coinActions.js";
+import { addCoin } from "../../features/coin/coinActions.js";
 
 const Modal = () => {
   const [data, setData] = useState({

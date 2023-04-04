@@ -1,9 +1,9 @@
 import React from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../futures/auth/authSlice.js";
+import { logout } from "../../features/auth/authSlice.js";
 import { useNavigate } from "react-router-dom";
-import { changeEditModal } from "../../futures/editModalSlice.js";
+import { changeEditModal } from "../../features/editModalSlice.js";
 import AuthHeader from "./AuthHeader.jsx";
 import ProfileHeader from "./ProfileHeader.jsx";
 

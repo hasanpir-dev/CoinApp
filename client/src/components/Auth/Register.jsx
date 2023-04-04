@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import "./auth.css";
 import { useFormik } from "formik";
 import { userRegisterSchema } from "../../schemas/index.js";
-import { registerUser } from "../../futures/auth/authActions";
+import { registerUser } from "../../features/auth/authActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../Spinner/Spinner.jsx";
 import { GrClose } from "react-icons/gr";
-import { changeSignUpModal } from "../../futures/auth/authSlice.js";
+import { changeSignUpModal } from "../../features/auth/authSlice.js";
 
 const Register = ({ signUp, setSignUp }) => {
   const { loading, userInfo, success } = useSelector((state) => state.auth);
