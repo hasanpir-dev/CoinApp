@@ -102,7 +102,7 @@ const logout = errorWrapper(async (req, res, next) => {
 //   await user.save();
 //
 //
-//   const resetPasswordUrl = `http://localhost:5000/api/v1/auth/resetPassword?resetPasswordToken=${resetPasswordToken}`;
+//   const resetPasswordUrl = `api/auth/resetPassword?resetPasswordToken=${resetPasswordToken}`;
 //
 //
 //   const emailTemplate = `
