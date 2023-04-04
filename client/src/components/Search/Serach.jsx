@@ -13,6 +13,7 @@ const Search = () => {
   const closeFilter = () => {
     dispatch(changeFilterModal(false));
   };
+
   return (
     <>
       <div>

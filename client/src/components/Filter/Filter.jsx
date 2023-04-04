@@ -16,6 +16,8 @@ const Filter = () => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
+//coins?title=name&year=2000,2010&price=500,1000&country=country&metal=gold&quality=gold
+
   return (
     <div className="flex items-center">
       <div className="bg-white w-3/4 py-6 rounded-md">

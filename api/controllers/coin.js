@@ -19,28 +19,22 @@ const getSingleCoin = errorWrapper(async (req, res, next) => {
 const getAllCoinsByCategory = errorWrapper(async (req, res, next) => {
   const { category_id } = req.params;
 
-  const query = {
-    $and: [
-      req.query.title
-        ? { title: { $regex: req.query.title, $options: "i" } }
-        : {},
-      req.query.year
-        ? { year: { $gte: req.query.year[0], $lte: req.query.year[1] } }
-        : {},
-      req.query.price
-        ? { price: { $gte: req.query.price[0], $lte: req.query.price[1] } }
-        : {},
-      req.query.country
-        ? { country: { $regex: req.query.country, $options: "i" } }
-        : {},
-      req.query.metal
-        ? { metal: { $regex: req.query.metal, $options: "i" } }
-        : {},
-      req.query.quality
-        ? { quality: { $regex: req.query.quality, $options: "i" } }
-        : {},
-    ],
-  };
+  const query = {};
+  const {
+    title,
+    year,
+    price,
+    country,
+    metal,
+    quality
+  } = req.query;
+
+  if (title) query.title = { $regex: title, $options: "i" };
+  if (year) query.year = { $gte: year[0], $lte: year[1] };
+  if (price) query.price = { $gte: price[0], $lte: price[1] };
+  if (country) query.country = { $regex: country, $options: "i" };
+  if (metal) query.metal = { $regex: metal, $options: "i" };
+  if (quality) query.quality = { $regex: quality, $options: "i" };
 
   const category = await Category.findById(category_id).populate({
     path: "coins",
@@ -55,6 +49,7 @@ const getAllCoinsByCategory = errorWrapper(async (req, res, next) => {
     data: coins,
   });
 });
+
 
 const addCoin = errorWrapper(async (req, res, next) => {
   const { category_id } = req.params;
