@@ -1,4 +1,5 @@
 const express = require("express");
+const Comment = require("../models/Comment");
 
 const {
   getSingleCoin,
@@ -13,12 +14,18 @@ const {
 const {
   getAccessToRoute,
   getCoinOwnerAccess,
+  getOwnerAccess,
 } = require("../middlewares/authorization/auth");
 
 const {
   checkCategoryAndCoinExist,
   checkCategoryExist,
 } = require("../middlewares/database/databaseErrorHelpers");
+const {
+  addComment,
+  deleteComment,
+  updateComment,
+} = require("../controllers/comment");
 
 const router = express.Router({ mergeParams: true });
 
@@ -44,6 +51,20 @@ router.delete(
   "/:coin_id/delete",
   [checkCategoryAndCoinExist, getAccessToRoute, getCoinOwnerAccess],
   deleteCoin
+);
+
+router.post("/:coin_id/comments/", getAccessToRoute, addComment);
+router.put(
+  "/:coin_id/comments/:comment_id",
+  getAccessToRoute,
+  getOwnerAccess(Comment),
+  updateComment
+);
+router.delete(
+  "/:coin_id/comments/:comment_id",
+  getAccessToRoute,
+  getOwnerAccess(Comment),
+  deleteComment
 );
 
 module.exports = router;

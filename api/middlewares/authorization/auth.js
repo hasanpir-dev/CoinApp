@@ -64,6 +64,33 @@ const getCoinOwnerAccess = errorWrapper(async (req, res, next) => {
   }
   return next();
 });
+
+const getOwnerAccess = (model) =>
+  errorWrapper(async (req, res, next) => {
+    const { id } = req.params; // comment_id
+    const userId = req.user.id;
+
+    const data = await model.findById(id);
+
+    if (!data) {
+      return next(
+        new CustomError(`The requested ${model.modelName} is not found`, 404)
+      );
+    }
+
+    if (data.user.toString() !== userId.toString()) {
+      return next(
+        new CustomError(
+          `You are not authorized to access this ${model.modelName}`,
+          403
+        )
+      );
+    }
+
+    req.data = data;
+    next();
+  });
+
 const getAccessTokenFromHeader = (req) => {
   const authorization = req.headers.authorization;
 
@@ -81,4 +108,5 @@ module.exports = {
   getAdminAccess,
   getCategoryOwnerAccess,
   getCoinOwnerAccess,
+  getOwnerAccess,
 };

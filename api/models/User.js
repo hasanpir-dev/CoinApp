@@ -59,6 +59,12 @@ const UserSchema = new Schema({
     type: Number,
     default: 0,
   },
+  comments: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: "Comment",
+    },
+  ],
 });
 
 UserSchema.methods.getTokenFromUserModel = function () {

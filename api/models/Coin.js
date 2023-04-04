@@ -84,6 +84,12 @@ const CoinSchema = new Schema({
     ref: "Category",
     required: true,
   },
+  comments: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: "Comment",
+    },
+  ],
 });
 CoinSchema.pre("save", async function (next) {
   if (!this.isModified("user")) return next();
