@@ -24,14 +24,6 @@ const getAllCoinsByCategory = errorWrapper(async (req, res, next) => {
       req.query.title
         ? { title: { $regex: req.query.title, $options: "i" } }
         : {},
-      req.query.faceValue
-        ? {
-            faceValue: {
-              $gte: req.query.faceValue[0],
-              $lte: req.query.faceValue[1],
-            },
-          }
-        : {},
       req.query.year
         ? { year: { $gte: req.query.year[0], $lte: req.query.year[1] } }
         : {},
