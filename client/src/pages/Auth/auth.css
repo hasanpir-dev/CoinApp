@@ -1,0 +1,11 @@
+    .input-style {
+        @apply border p-2 rounded-md outline-none
+    }
+
+    .input-error {
+        @apply border p-2 rounded-md outline-none border-rose-500
+    }
+
+    .error-message {
+        @apply text-rose-500 text-xs
+    }

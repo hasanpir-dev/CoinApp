@@ -1,0 +1,10 @@
+
+
+td, th {
+    text-align: left;
+    padding: 4px;
+}
+
+tr:nth-child(odd) {
+    background-color: #fff;
+}
