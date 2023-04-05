@@ -22,6 +22,7 @@ const AuthHeader = () => {
         </div>
         <div
           onClick={() => {
+            dispatch(changeSignInModal(false));
             dispatch(changeSignUpModal(true));
           }}
           className="w-36 border p-2 rounded-md text-center text-white cursor-pointer
@@ -31,6 +32,7 @@ const AuthHeader = () => {
         </div>
         <AiOutlineLogin
           onClick={() => {
+            dispatch(changeSignUpModal(false));
             dispatch(changeSignInModal(true));
           }}
           size={25}

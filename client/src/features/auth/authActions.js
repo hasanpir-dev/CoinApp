@@ -17,6 +17,8 @@ export const registerUser = createAsyncThunk(
         { name, email, password },
         config
       );
+      localStorage.setItem("name", data.data.name);
+      localStorage.setItem("userToken", data.token);
       toast.success("You have registered successfully.", {
         position: "top-left",
       });

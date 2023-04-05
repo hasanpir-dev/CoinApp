@@ -60,8 +60,10 @@ const authSlice = createSlice({
       state.loading = true;
       state.error = null;
     });
-    builder.addCase(registerUser.fulfilled, (state) => {
+    builder.addCase(registerUser.fulfilled, (state, payload) => {
       state.loading = false;
+      state.userInfo = payload;
+      state.userToken = payload.userToken;
       state.success = true;
       state.signUpModal = false;
     });

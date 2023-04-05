@@ -6,16 +6,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../../features/auth/authActions.js";
 import Spinner from "../Spinner/Spinner.jsx";
 import { GrClose } from "react-icons/gr";
-import { changeSignInModal } from "../../features/auth/authSlice.js";
+import {
+  changeSignInModal,
+  changeSignUpModal,
+} from "../../features/auth/authSlice.js";
 
-const Login = ({ signUp, setSignUp }) => {
+const Login = () => {
   const { loading, userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (userInfo) {
-      navigate("/user-profile");
+      navigate("/");
     }
   }, [navigate, userInfo]);
 
@@ -74,7 +77,14 @@ const Login = ({ signUp, setSignUp }) => {
           )}
 
           <div className="text-red-500 text-xs cursor-pointer mb-4">
-            <span onClick={() => setSignUp(false)}>Registration</span>
+            <span
+              onClick={() => {
+                dispatch(changeSignInModal(false));
+                dispatch(changeSignUpModal(true));
+              }}
+            >
+              Registration
+            </span>
           </div>
           <button
             className="cursor-pointer w-full text-center bg-violet-600 hover:bg-violet-800 text-white py-2 px-4 rounded"

@@ -7,18 +7,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../Spinner/Spinner.jsx";
 import { GrClose } from "react-icons/gr";
-import { changeSignUpModal } from "../../features/auth/authSlice.js";
+import {
+  changeSignInModal,
+  changeSignUpModal,
+} from "../../features/auth/authSlice.js";
 
-const Register = ({ signUp, setSignUp }) => {
-  const { loading, userInfo, success } = useSelector((state) => state.auth);
+const Register = ({}) => {
+  const { loading, userInfo, success, userToken } = useSelector(
+    (state) => state.auth
+  );
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
-    if (success) navigate("/auth");
+    if (success) navigate("/");
     // redirect authenticated user to profile screen
-    if (userInfo) navigate("/user-profile");
+    if (userInfo) navigate("/");
   }, [navigate, userInfo, success]);
+
+  console.log(loading, userInfo, success, userToken);
 
   const onSubmit = (values, actions) => {
     values.email = values.email.toLowerCase();
@@ -105,7 +112,14 @@ const Register = ({ signUp, setSignUp }) => {
         </div>
 
         <div className="text-red-500 text-xs cursor-pointer mb-4">
-          <span onClick={() => setSignUp(true)}>Already Registered?</span>
+          <span
+            onClick={() => {
+              dispatch(changeSignUpModal(false));
+              dispatch(changeSignInModal(true));
+            }}
+          >
+            Already Registered?
+          </span>
         </div>
         <button
           type="submit"
