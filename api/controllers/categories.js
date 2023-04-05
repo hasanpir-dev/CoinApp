@@ -3,7 +3,11 @@ const Category = require("../models/Category");
 const errorWrapper = require("../helpers/error/errorWrapper");
 
 const getAllCategories = errorWrapper(async (req, res) => {
-  const categories = await Category.find();
+  const { title } = req.query;
+
+  const query = title ? { title: { $regex: title, $options: "i" } } : {};
+
+  const categories = await Category.find(query);
 
   return res.status(200).json({
     success: true,

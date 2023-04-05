@@ -18,6 +18,7 @@ export const registerUser = createAsyncThunk(
         config
       );
       localStorage.setItem("name", data.data.name);
+      localStorage.setItem("user_id", data.data.user_id);
       localStorage.setItem("userToken", data.token);
       toast.success("You have registered successfully.", {
         position: "top-left",
@@ -57,6 +58,7 @@ export const userLogin = createAsyncThunk(
         config
       );
       localStorage.setItem("name", data.data.name);
+      localStorage.setItem("user_id", data.data.user_id);
       localStorage.setItem("userToken", data.token);
       toast.success("You have logged in successfully.", {
         position: "top-left",

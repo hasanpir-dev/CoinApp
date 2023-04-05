@@ -9,9 +9,11 @@ const CategoryList = () => {
 
   const dispatch = useDispatch();
 
+  const title = useSelector((state) => state.category.title);
+
   useEffect(() => {
-    dispatch(getCategories({}));
-  }, [dispatch]);
+    dispatch(getCategories({ title }));
+  }, [dispatch, title]);
 
   return (
     <div className="flex items-center py-12 flex-wrap">

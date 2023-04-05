@@ -9,10 +9,13 @@ const Category = ({ title, image, _id }) => {
     navigate(`/category/${_id}`);
   };
 
+  //<div className="mr-36 mb-10">
   return (
     <>
-      <div className="mr-36 mb-10">
-        <h2 className="text-3xl text-gray-700  mb-5 font-medium">{title}</h2>
+      <div className="w-4/12">
+        <h2 className="text-3xl text-gray-700  mb-5 font-medium break-words">
+          {title}
+        </h2>
         <div className="flex items-center mb-3 w-fit">
           <Link
             className="text-sm font-light cursor-pointer"

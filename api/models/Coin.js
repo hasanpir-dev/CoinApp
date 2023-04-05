@@ -9,6 +9,7 @@ const CoinSchema = new Schema({
     type: String,
     required: [true, "Please provide a title"],
     minlength: [5, "Please provide title at least 5 characters"],
+    maxlength: [20, "Please provide title less than 20 characters"],
   },
   faceValue: {
     type: String,
@@ -127,7 +128,8 @@ CoinSchema.post("remove", async function () {
   const user = await User.findById(this.user);
 
   user.coins.splice(user.coins.indexOf(this._id), 1);
-  user.coinsCount -= 1;
+  user.coinsCount = 100;
+  await user.save();
 
   category.coins.splice(category.coins.indexOf(this._id), 1);
   category.coinsCount -= 1;

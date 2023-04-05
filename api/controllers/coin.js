@@ -1,5 +1,6 @@
 const Coin = require("../models/Coin");
 const Category = require("../models/Category");
+const User = require("../models/User");
 
 const errorWrapper = require("../helpers/error/errorWrapper");
 const CustomError = require("../helpers/error/customError");
@@ -155,17 +156,31 @@ const editCoin = errorWrapper(async (req, res, next) => {
   });
 });
 const deleteCoin = errorWrapper(async (req, res, next) => {
-  const { coin_id } = req.params;
+  const coin_id = req.params.coin_id;
 
   const coin = await Coin.findById(coin_id);
 
-  await coin.remove();
+  //await coin.remove();
+
+  const category = await Category.findById(coin.category);
+  const user = await User.findById(coin.user);
+
+  user.coins.splice(user.coins.indexOf(coin._id), 1);
+  user.coinsCount -= 1;
+  await user.save();
+
+  category.coins.splice(category.coins.indexOf(coin._id), 1);
+  category.coinsCount -= 1;
+  await category.save();
+
+  await coin.deleteOne();
 
   res.status(200).json({
     success: true,
     message: "Coin Deleted Successfully",
   });
 });
+
 const likeCoin = errorWrapper(async (req, res, next) => {
   const { coin_id } = req.params;
 

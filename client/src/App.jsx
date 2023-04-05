@@ -11,6 +11,7 @@ import Login from "./components/Auth/Login.jsx";
 import Register from "./components/Auth/Register.jsx";
 import CoinListPage from "./pages/Coinlist/CoinListPage.jsx";
 import CoinPage from "./pages/Coin/CoinPage.jsx";
+import MyCoins from "./pages/MyPage/MyCoins.jsx";
 
 function App() {
   const { editModal, categoryModal } = useSelector((state) => state.modal);
@@ -35,6 +36,7 @@ function App() {
             </RouteControl>
           }
         />
+        <Route path="/my_coins/" element={<MyCoins />} />
         <Route path="/coins/:coin_id" element={<CoinPage />} />
         <Route path="/coins/" element={<CoinListPage />} />
         <Route path="/category/:_id" element={<CoinListPage />} />
@@ -50,6 +52,6 @@ export const RouteControl = ({ children }) => {
   if (localStorage.getItem("name")) {
     return children;
   } else {
-    return <Navigate to="/auth" />;
+    return <Navigate to="/" />;
   }
 };

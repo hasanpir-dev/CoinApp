@@ -57,10 +57,16 @@ const getCoinOwnerAccess = errorWrapper(async (req, res, next) => {
   const userId = req.user.id;
   const coinId = req.params.coin_id;
 
+  console.log(userId, coinId);
   const coin = await Coin.findById(coinId);
 
-  if (coin.user !== userId) {
-    return next(new CustomError("Only owner can handle this operation", 403));
+  if (coin.user != userId) {
+    return next(
+      new CustomError(
+        `Only owner can handle this operation&${userId}--- ${coin.user}`,
+        403
+      )
+    );
   }
   return next();
 });

@@ -6,11 +6,14 @@ import { changeFilterModal } from "../../features/editModalSlice.js";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { getAllCoins, getCoins } from "../../features/coin/coinActions.js";
 import { filterCoin } from "../../features/coin/coinSlice.js";
+import { categorySearch } from "../../features/category/categorySlice.js";
+import { getCategories } from "../../features/category/categoryActions.js";
 
 const Search = () => {
   const [title, setTitle] = useState("");
   const dispatch = useDispatch();
   const filterData = useSelector((state) => state.coin.filterCoins);
+  const categoryTitle = useSelector((state) => state.category.title);
   const params = useParams();
   const id = params._id;
   const location = useLocation();
@@ -29,10 +32,11 @@ const Search = () => {
   }, [dispatch, filterData]);
 
   useEffect(() => {
-    dispatch(filterCoin({ title }));
-  }, [title]);
+    location.pathname === "/"
+      ? dispatch(categorySearch(title))
+      : dispatch(filterCoin({ title }));
+  }, [dispatch, title]);
 
-  console.log(location.pathname === "/coins/");
   const navigate = useNavigate();
 
   return (
@@ -72,20 +76,22 @@ const Search = () => {
             )}
           </div>
         </div>
-        <div
-          className="flex items-center w-fit "
-          onClick={!filterModal ? openFilter : closeFilter}
-        >
-          <span className="text-sm underline font-light cursor-pointer">
-            Advanced filter
-          </span>
-          {!filterModal ? (
-            <MdKeyboardArrowDown size={20} className="cursor-pointer" />
-          ) : (
-            <MdKeyboardArrowUp size={20} className="cursor-pointer" />
-          )}
-        </div>
-        {filterModal && <Filter />}
+        {location.pathname === "/" ? null : (
+          <div
+            className="flex items-center w-fit "
+            onClick={!filterModal ? openFilter : closeFilter}
+          >
+            <span className="text-sm underline font-light cursor-pointer">
+              Advanced filter
+            </span>
+            {!filterModal ? (
+              <MdKeyboardArrowDown size={20} className="cursor-pointer" />
+            ) : (
+              <MdKeyboardArrowUp size={20} className="cursor-pointer" />
+            )}
+          </div>
+        )}
+        {location.pathname !== "/" && filterModal && <Filter />}
       </div>
     </>
   );

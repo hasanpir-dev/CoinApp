@@ -31,6 +31,7 @@ const login = errorWrapper(async (req, res, next) => {
 
   sendTokenToClient(user, res, 200);
 });
+
 const getLoggedInUser = errorWrapper(async (req, res, next) => {
   res.status(200).json({
     success: true,
@@ -39,8 +40,6 @@ const getLoggedInUser = errorWrapper(async (req, res, next) => {
 });
 const logout = errorWrapper(async (req, res, next) => {
   const { JWT_COOKIE_EXPIRE, NODE_ENV } = process.env;
-
-  // Send To Client With Res
 
   return res
     .status(200)
@@ -187,6 +186,7 @@ const sendTokenToClient = (user, res, status) => {
         name: user.name,
         email: user.email,
         role: user.role,
+        user_id: user._id,
       },
     });
 };

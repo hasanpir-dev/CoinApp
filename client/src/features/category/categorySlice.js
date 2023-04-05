@@ -6,6 +6,7 @@ const initialState = {
   error: null,
   success: false,
   categories: [],
+  title: "",
 };
 
 const categorySlice = createSlice({
@@ -14,6 +15,9 @@ const categorySlice = createSlice({
   reducers: {
     addCategoryState: (state, action) => {
       state.categories.push(action.payload);
+    },
+    categorySearch: (state, action) => {
+      state.title = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -44,6 +48,6 @@ const categorySlice = createSlice({
   },
 });
 
-export const { addCategoryState } = categorySlice.actions;
+export const { addCategoryState, categorySearch } = categorySlice.actions;
 
 export default categorySlice.reducer;

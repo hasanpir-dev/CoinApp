@@ -5,7 +5,7 @@ const Coin = ({ title, shortDesc, imgObverse, _id }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex w-96 justify-between mr-36 mb-6">
+    <div className="flex w-6/12 mb-6">
       <div
         style={{ width: "120px", height: "120px" }}
         className="cursor-pointer"

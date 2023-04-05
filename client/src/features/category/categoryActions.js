@@ -83,9 +83,11 @@ export const editCategory = createAsyncThunk(
 
 export const getCategories = createAsyncThunk(
   "category/getCategories",
-  async ({ title, description, image }, { rejectWithValue }) => {
+  async ({ title }, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`${backendURL}/api/category/`);
+      const { data } = await axios.get(
+        `${backendURL}/api/category?title=${title}`
+      );
       return data;
     } catch (error) {
       if (error.response && error.response.data.message) {

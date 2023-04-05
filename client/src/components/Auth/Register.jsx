@@ -25,8 +25,6 @@ const Register = ({}) => {
     if (userInfo) navigate("/");
   }, [navigate, userInfo, success]);
 
-  console.log(loading, userInfo, success, userToken);
-
   const onSubmit = (values, actions) => {
     values.email = values.email.toLowerCase();
     let email = values.email;
