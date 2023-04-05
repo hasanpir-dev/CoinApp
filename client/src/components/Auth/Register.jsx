@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./auth.css";
 import { useFormik } from "formik";
 import { userRegisterSchema } from "../../schemas/index.js";
@@ -53,9 +53,7 @@ const Register = ({ signUp, setSignUp }) => {
           }}
           className="flex justify-between items-center cursor-pointer"
         >
-          <h1 className="text-2xl text-gray-700 font-bold">
-            Coin Social Media
-          </h1>
+          <h1 className="text-2xl text-gray-700 font-bold">Coin Social App</h1>
           <GrClose size={20} />
         </div>
 

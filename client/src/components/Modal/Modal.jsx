@@ -50,7 +50,6 @@ const Modal = () => {
   };
 
   const createCoin = () => {
-    console.log(data);
     dispatch(
       addCoin({
         title,

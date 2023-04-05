@@ -24,7 +24,6 @@ const ProfileHeader = () => {
       </div>
       <div
         onClick={() => {
-          console.log("cat");
           dispatch(changeCategoryModal(true));
         }}
         className="w-36 border p-2 rounded-md text-center text-white cursor-pointer

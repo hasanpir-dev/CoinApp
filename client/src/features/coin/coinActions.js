@@ -114,10 +114,53 @@ export const editCoin = createAsyncThunk(
 
 export const getCoins = createAsyncThunk(
   "coin/getCoins",
-  async (_id, { rejectWithValue }) => {
+  async (
+    {
+      id,
+      title,
+      country,
+      metal,
+      quality,
+      priceFrom,
+      priceTo,
+      yearFrom,
+      yearTo,
+    },
+    { rejectWithValue }
+  ) => {
     try {
       const { data } = await axios.get(
-        `${backendURL}/api/category/${_id}/coins/`
+        `${backendURL}/api/category/${id}/coins?title=${title}&year=${yearFrom},${yearTo}&price=${priceFrom},${priceTo}&country=${country}&metal=${metal}&quality=${quality}`
+      );
+      return data;
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(
+          toast.error(error.response.data.message, {
+            position: "top-left",
+            autoClose: 5000,
+          })
+        );
+      } else {
+        return rejectWithValue(
+          toast.error(error.message, {
+            position: "top-left",
+            autoClose: 5000,
+          })
+        );
+      }
+    }
+  }
+);
+export const getAllCoins = createAsyncThunk(
+  "coin/getALLCoins",
+  async (
+    { title, country, metal, quality, priceFrom, priceTo, yearFrom, yearTo },
+    { rejectWithValue }
+  ) => {
+    try {
+      const { data } = await axios.get(
+        `${backendURL}/api/coins?title=${title}&year=${yearFrom},${yearTo}&price=${priceFrom},${priceTo}&country=${country}&metal=${metal}&quality=${quality}`
       );
       return data;
     } catch (error) {

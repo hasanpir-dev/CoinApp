@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const Coin = ({ title, shortDesc, imgObverse, _id, id }) => {
+const Coin = ({ title, shortDesc, imgObverse, _id }) => {
   const navigate = useNavigate();
 
   return (
@@ -9,7 +9,7 @@ const Coin = ({ title, shortDesc, imgObverse, _id, id }) => {
       <div
         style={{ width: "120px", height: "120px" }}
         className="cursor-pointer"
-        onClick={() => navigate(`/${id}/${_id}`)}
+        onClick={() => navigate(`/coins/${_id}`)}
       >
         <img src={imgObverse} alt={title} />
       </div>

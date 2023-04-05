@@ -23,15 +23,14 @@ const Login = ({ signUp, setSignUp }) => {
     dispatch(userLogin(values));
   };
 
-  const { values, errors, isSubmitting, handleChange, handleSubmit } =
-    useFormik({
-      initialValues: {
-        email: "",
-        password: "",
-      },
-      validationSchema: userLoginSchema,
-      onSubmit,
-    });
+  const { values, errors, handleChange, handleSubmit } = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: userLoginSchema,
+    onSubmit,
+  });
 
   return (
     <form
@@ -46,9 +45,7 @@ const Login = ({ signUp, setSignUp }) => {
           }}
           className="flex justify-between items-center cursor-pointer"
         >
-          <h1 className="text-2xl text-gray-700 font-bold">
-            Coin Social Media
-          </h1>
+          <h1 className="text-2xl text-gray-700 font-bold">Coin Social App</h1>
           <GrClose size={20} />
         </div>
         <div className="flex flex-col space-y-3 my-3">

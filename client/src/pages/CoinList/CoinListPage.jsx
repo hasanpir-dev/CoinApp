@@ -1,22 +1,18 @@
 import Coin from "../../components/Coinlist/Coin/Coin.jsx";
-import { useEffect } from "react";
-import { getCoins } from "../../features/coin/coinActions.js";
-import { useDispatch, useSelector } from "react-redux";
+
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Spinner from "../../components/Spinner/Spinner.jsx";
 import Serach from "../../components/Search/Serach.jsx";
 
 const CoinListPage = () => {
-  const dispatch = useDispatch();
   const params = useParams();
   const id = params._id;
 
-  const coins = useSelector((state) => state.coin.coins);
+  const coinsByCategorySate = useSelector((state) => state.coin.coins);
+  const alLCoinsState = useSelector((state) => state.coin.allCoins);
   const loading = useSelector((state) => state.coin.loading);
-
-  useEffect(() => {
-    dispatch(getCoins(id));
-  }, [dispatch]);
+  const coins = id ? coinsByCategorySate : alLCoinsState;
 
   return (
     <>

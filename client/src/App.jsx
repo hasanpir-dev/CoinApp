@@ -35,8 +35,9 @@ function App() {
             </RouteControl>
           }
         />
-        <Route path="/:_id/:id" element={<CoinPage />} />
-        <Route path="/coins/:_id" element={<CoinListPage />} />
+        <Route path="/coins/:coin_id" element={<CoinPage />} />
+        <Route path="/coins/" element={<CoinListPage />} />
+        <Route path="/category/:_id" element={<CoinListPage />} />
         <Route path="/*" element={<h1>404 Not Found</h1>}></Route>
       </Routes>
     </>

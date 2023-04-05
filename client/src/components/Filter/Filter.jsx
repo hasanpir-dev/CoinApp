@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { filterCoin } from "../../features/coin/coinSlice.js";
 
 const Filter = () => {
+  const dispatch = useDispatch();
   const [data, setData] = useState({
     country: "",
     metal: "",
@@ -14,6 +17,10 @@ const Filter = () => {
   const onChangeFn = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
+
+  useEffect(() => {
+    dispatch(filterCoin(data));
+  }, [data]);
 
   //coins?title=name&year=2000,2010&price=500,1000&country=country&metal=gold&quality=gold
 

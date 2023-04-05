@@ -18,14 +18,41 @@ const getSingleCoin = errorWrapper(async (req, res, next) => {
 });
 
 const getAllCoins = errorWrapper(async (req, res, next) => {
+  const fromYear = req.query.year ? req.query.year.split(",")[0] : "";
+  const toYear = req.query.year ? req.query.year.split(",")[1] : "";
+  const fromPrice = req.query.price ? req.query.price.split(",")[0] : "";
+  const toPrice = req.query.price ? req.query.price.split(",")[1] : "";
+
   const query = {
     $and: [
-      req.query.title ? { title: { $regex: req.query.title, $options: "i" } } : {},
-      req.query.year ? { year: { $gte: req.query.year.split(",")[0], $lte: req.query.year.split(",")[1] } } : {},
-      req.query.price ? { price: { $gte: req.query.price.split(",")[0], $lte: req.query.price.split(",")[1] } } : {},
-      req.query.country ? { country: { $regex: req.query.country, $options: "i" } } : {},
-      req.query.metal ? { metal: { $regex: req.query.metal, $options: "i" } } : {},
-      req.query.quality ? { quality: { $regex: req.query.quality, $options: "i" } } : {},
+      req.query.title
+        ? { title: { $regex: req.query.title, $options: "i" } }
+        : {},
+      fromYear || toYear
+        ? {
+            year: {
+              ...(fromYear ? { $gte: fromYear } : {}),
+              ...(toYear ? { $lte: toYear } : {}),
+            },
+          }
+        : {},
+      fromPrice || toPrice
+        ? {
+            price: {
+              ...(fromPrice ? { $gte: fromPrice } : {}),
+              ...(toPrice ? { $lte: toPrice } : {}),
+            },
+          }
+        : {},
+      req.query.country
+        ? { country: { $regex: req.query.country, $options: "i" } }
+        : {},
+      req.query.metal
+        ? { metal: { $regex: req.query.metal, $options: "i" } }
+        : {},
+      req.query.quality
+        ? { quality: { $regex: req.query.quality, $options: "i" } }
+        : {},
     ],
   };
 
@@ -38,33 +65,45 @@ const getAllCoins = errorWrapper(async (req, res, next) => {
   });
 });
 
-
-
 const getAllCoinsByCategory = errorWrapper(async (req, res, next) => {
   const { category_id } = req.params;
+  const fromYear = req.query.year ? req.query.year.split(",")[0] : "";
+  const toYear = req.query.year ? req.query.year.split(",")[1] : "";
+  const fromPrice = req.query.price ? req.query.price.split(",")[0] : "";
+  const toPrice = req.query.price ? req.query.price.split(",")[1] : "";
 
-  const query = {};
-  const {
-    title,
-    year,
-    price,
-    country,
-    metal,
-    quality
-  } = req.query;
-
-  if (title) query.title = { $regex: title, $options: "i" };
-  if (year) {
-    const [minYear, maxYear] = year.split(',');
-    query.year = { $gte: minYear, $lte: maxYear };
-  }
-  if (price) {
-    const [minPrice, maxPrice] = price.split(',');
-    query.price = { $gte: minPrice, $lte: maxPrice };
-  }
-  if (country) query.country = { $regex: country, $options: "i" };
-  if (metal) query.metal = { $regex: metal, $options: "i" };
-  if (quality) query.quality = { $regex: quality, $options: "i" };
+  const query = {
+    $and: [
+      req.query.title
+        ? { title: { $regex: req.query.title, $options: "i" } }
+        : {},
+      fromYear || toYear
+        ? {
+            year: {
+              ...(fromYear ? { $gte: fromYear } : {}),
+              ...(toYear ? { $lte: toYear } : {}),
+            },
+          }
+        : {},
+      fromPrice || toPrice
+        ? {
+            price: {
+              ...(fromPrice ? { $gte: fromPrice } : {}),
+              ...(toPrice ? { $lte: toPrice } : {}),
+            },
+          }
+        : {},
+      req.query.country
+        ? { country: { $regex: req.query.country, $options: "i" } }
+        : {},
+      req.query.metal
+        ? { metal: { $regex: req.query.metal, $options: "i" } }
+        : {},
+      req.query.quality
+        ? { quality: { $regex: req.query.quality, $options: "i" } }
+        : {},
+    ],
+  };
 
   const category = await Category.findById(category_id).populate({
     path: "coins",
@@ -79,9 +118,6 @@ const getAllCoinsByCategory = errorWrapper(async (req, res, next) => {
     data: coins,
   });
 });
-
-
-
 
 const addCoin = errorWrapper(async (req, res, next) => {
   const { category_id } = req.params;

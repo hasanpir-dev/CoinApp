@@ -6,10 +6,9 @@ import "./CoinPage.css";
 
 const CoinPage = () => {
   const params = useParams();
-  const category_id = params._id;
-  const coin_id = params.id;
+  const coin_id = params.coin_id;
 
-  const API_URI = `http://localhost:4000/api/category/${category_id}/coins/${coin_id}`;
+  const API_URI = `http://localhost:4000/api/coins/${coin_id}`;
   const [coin, setCoin] = useState([]);
 
   useEffect(() => {

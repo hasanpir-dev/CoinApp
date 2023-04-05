@@ -1,17 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
-import { changeCoinListModal } from "../../features/editModalSlice.js";
-import { useDispatch, useSelector } from "react-redux";
-import { getCoins } from "../../features/coin/coinActions.js";
 import { Link, useNavigate } from "react-router-dom";
 
 const Category = ({ title, image, _id }) => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const openCoinList = () => {
-    navigate(`/coins/${_id}`);
-    // dispatch(changeCoinListModal(true));
+    navigate(`/category/${_id}`);
   };
 
   return (
@@ -21,7 +16,7 @@ const Category = ({ title, image, _id }) => {
         <div className="flex items-center mb-3 w-fit">
           <Link
             className="text-sm font-light cursor-pointer"
-            to={`/coins/${_id}`}
+            to={`/category/${_id}`}
           >
             Show All
           </Link>
