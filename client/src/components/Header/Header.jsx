@@ -11,9 +11,8 @@ import { getAuth } from "../../features/auth/authSlice.js";
 const Header = () => {
   const navigate = useNavigate();
   const authorized = useSelector((state) => state.auth.authorized);
-
   const dispatch = useDispatch();
-
+  const auth = useSelector((state) => state.auth);
   useEffect(() => {
     getAuthorized().then((res) => {
       if (res) {
@@ -24,6 +23,8 @@ const Header = () => {
       }
     });
   }, [authorized]);
+
+  console.log(auth);
 
   return (
     <div className="h-20 bg-violet-600 flex items-center justify-between px-5">

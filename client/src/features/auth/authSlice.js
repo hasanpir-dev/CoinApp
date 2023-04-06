@@ -10,7 +10,6 @@ const name = localStorage.getItem("name") ? localStorage.getItem("name") : null;
 
 const initialState = {
   loading: false,
-  userInfo: null,
   userToken,
   error: null,
   success: false,
@@ -27,13 +26,13 @@ const authSlice = createSlice({
   reducers: {
     logout: (state) => {
       localStorage.removeItem("userToken");
+      localStorage.removeItem("user_id");
       localStorage.removeItem("name");
       state.loading = false;
-      state.userInfo = null;
+      state.id = null;
       state.userToken = null;
       state.error = null;
       state.name = null;
-      state.userInfo = null;
       state.authorized = false;
     },
     getAuth: (state, action) => {
@@ -55,7 +54,6 @@ const authSlice = createSlice({
     });
     builder.addCase(userLogin.fulfilled, (state, { payload }) => {
       state.loading = false;
-      state.userInfo = payload;
       state.userToken = payload.userToken;
       state.signInModal = false;
     });
@@ -68,11 +66,11 @@ const authSlice = createSlice({
       state.error = null;
     });
     builder.addCase(registerUser.fulfilled, (state, payload) => {
+      console.log(payload);
       state.loading = false;
-      state.userInfo = payload;
-      state.userToken = payload.userToken;
       state.success = true;
       state.signUpModal = false;
+      state.authorized = true;
     });
     builder.addCase(registerUser.rejected, (state, { payload }) => {
       state.loading = false;

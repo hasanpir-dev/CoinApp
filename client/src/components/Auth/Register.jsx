@@ -13,15 +13,15 @@ import {
 } from "../../features/auth/authSlice.js";
 
 const Register = ({}) => {
-  const { loading, userInfo, success } = useSelector((state) => state.auth);
+  const { loading, name, success } = useSelector((state) => state.auth);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
     if (success) navigate("/");
     // redirect authenticated user to profile screen
-    if (userInfo) navigate("/");
-  }, [navigate, userInfo, success]);
+    if (name) navigate("/");
+  }, [navigate, name, success]);
 
   const onSubmit = (values, actions) => {
     values.email = values.email.toLowerCase();

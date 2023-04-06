@@ -12,17 +12,17 @@ import {
 } from "../../features/auth/authSlice.js";
 
 const Login = () => {
-  const { loading, userInfo } = useSelector((state) => state.auth);
+  const { loading, name } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (userInfo) {
+    if (name) {
       navigate("/");
     }
-  }, [navigate, userInfo]);
+  }, [navigate, name]);
 
-  const onSubmit = (values, actions) => {
+  const onSubmit = (values) => {
     dispatch(userLogin(values));
   };
 
