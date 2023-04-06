@@ -6,17 +6,18 @@ import {
 import { AiOutlineLogout } from "react-icons/ai";
 import React from "react";
 import { logout } from "../../features/auth/authSlice.js";
+import { isEditCoin } from "../../features/coin/coinSlice.js";
 
 const ProfileHeader = () => {
   const dispatch = useDispatch();
 
-  const openModal = () => {
-    dispatch(changeEditModal(true));
-  };
   return (
     <div className="flex items-center space-x-5">
       <div
-        onClick={openModal}
+        onClick={() => {
+          dispatch(changeEditModal(true));
+          dispatch(isEditCoin(false));
+        }}
         className="w-36 border p-2 rounded-md text-center text-white cursor-pointer
         hover:bg-violet-800"
       >

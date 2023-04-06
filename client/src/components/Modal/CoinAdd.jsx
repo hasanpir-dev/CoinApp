@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./modal.css";
 import { GrClose } from "react-icons/gr";
 import { changeEditModal } from "../../features/editModalSlice.js";
 import { useDispatch, useSelector } from "react-redux";
-import { addCoin } from "../../features/coin/coinActions.js";
+import { addCoin, editCoin } from "../../features/coin/coinActions.js";
+import { isEditCoin } from "../../features/coin/coinSlice.js";
 
-const Modal = () => {
+const CoinAdd = () => {
   const [data, setData] = useState({
     title: "",
     faceValue: "",
@@ -38,9 +39,17 @@ const Modal = () => {
     category,
   } = data;
 
-  const categories = useSelector((state) => state.category.categories);
-  const test = useSelector((state) => state.coin);
+  const coin = useSelector((state) => state.coin.coin);
+  const _id = useSelector((state) => state.coin.coin._id);
 
+  const isEdit = useSelector((state) => state.coin.editCoin);
+  const categories = useSelector((state) => state.category.categories);
+
+  useEffect(() => {
+    isEdit && setData(coin);
+  }, [coin]);
+
+  console.log();
   const dispatch = useDispatch();
   const onChangeFn = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -49,26 +58,48 @@ const Modal = () => {
     dispatch(changeEditModal(false));
   };
 
-  const createCoin = () => {
-    dispatch(
-      addCoin({
-        title,
-        faceValue,
-        year,
-        price,
-        country,
-        metal,
-        shortDesc,
-        longDesc,
-        quality,
-        weight,
-        imgObverse,
-        imgReverse,
-        category,
-      })
-    );
+  const createCoin = (e) => {
+    e.preventDefault();
+    if (isEdit) {
+      dispatch(
+        editCoin({
+          title,
+          faceValue,
+          year,
+          price,
+          country,
+          metal,
+          shortDesc,
+          longDesc,
+          quality,
+          weight,
+          imgObverse,
+          imgReverse,
+          category,
+          _id,
+        })
+      );
+    } else {
+      dispatch(
+        addCoin({
+          title,
+          faceValue,
+          year,
+          price,
+          country,
+          metal,
+          shortDesc,
+          longDesc,
+          quality,
+          weight,
+          imgObverse,
+          imgReverse,
+          category,
+        })
+      );
+    }
   };
-
+  console.log(category);
   return (
     <div className="w-full h-screen bg-opacity-50 bg-black fixed top-0 left-0 right-0 bottom-0 z-50 flex justify-center items-center">
       <div className="bg-white w-3/4 p-10 rounded-md">
@@ -190,7 +221,13 @@ const Modal = () => {
                 className="input-style"
                 onChange={onChangeFn}
               >
-                <option value="">Select Category</option>
+                {data.category._id ? (
+                  <option value={data.category._id}>
+                    {data.category.title}
+                  </option>
+                ) : (
+                  <option value="">Select Category</option>
+                )}
                 {categories?.map((category) => {
                   return (
                     <option key={category._id} value={category._id}>
@@ -221,4 +258,4 @@ const Modal = () => {
   );
 };
 
-export default Modal;
+export default CoinAdd;

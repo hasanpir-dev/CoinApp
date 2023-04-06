@@ -7,6 +7,7 @@ const {
   getAllCoins,
   getSingleCoin,
   deleteCoin,
+  editCoin,
 } = require("../controllers/coin");
 const {
   checkCategoryAndCoinExist,
@@ -20,6 +21,11 @@ const router = express.Router();
 
 router.get("/coins", getAllCoins);
 router.get("/coins/:coin_id", getSingleCoin);
+router.put(
+  "/coins/:coin_id/edit",
+  [getAccessToRoute, getCoinOwnerAccess],
+  editCoin
+);
 router.delete(
   "/coins/:coin_id/delete",
   [getAccessToRoute, getCoinOwnerAccess],

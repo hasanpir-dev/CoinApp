@@ -1,6 +1,7 @@
 const Category = require("../models/Category");
 
 const errorWrapper = require("../helpers/error/errorWrapper");
+const Coin = require("../models/Coin");
 
 const getAllCategories = errorWrapper(async (req, res) => {
   const { title } = req.query;
@@ -39,12 +40,13 @@ const addCategory = errorWrapper(async (req, res, next) => {
 });
 const editCategory = errorWrapper(async (req, res, next) => {
   const { id } = req.params;
-  const { title, description, image } = req.body;
+  const updatedFields = req.body;
+
   let category = await Category.findById(id);
 
-  category.title = title;
-  category.description = description;
-  category.image = image;
+  Object.keys(updatedFields).forEach((key) => {
+    Category[key] = updatedFields[key];
+  });
 
   category = await category.save();
 

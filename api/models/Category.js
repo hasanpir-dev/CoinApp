@@ -5,7 +5,7 @@ const slugify = require("slugify");
 const CategorySchema = new Schema({
   title: {
     type: String,
-    required: [true, "Please provide a title"],
+    required: [true, "Please provide a category"],
     minlength: [5, "Please provide title at least 5 characters"],
     maxlength: [20, "Please provide title less than 20 characters"],
     unique: [true, "Category already exists"],

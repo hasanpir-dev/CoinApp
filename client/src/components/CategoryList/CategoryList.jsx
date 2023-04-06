@@ -7,14 +7,6 @@ import Spinner from "../Spinner/Spinner.jsx";
 const CategoryList = () => {
   const categories = useSelector((state) => state.category.categories);
 
-  const dispatch = useDispatch();
-
-  const title = useSelector((state) => state.category.title);
-
-  useEffect(() => {
-    dispatch(getCategories({ title }));
-  }, [dispatch, title]);
-
   return (
     <div className="flex items-center py-12 flex-wrap">
       {categories.length !== 0 ? (

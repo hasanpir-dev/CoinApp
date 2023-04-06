@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { registerUser, userLogin } from "./authActions";
 
-// initialize userToken from local storage
 const userToken = localStorage.getItem("userToken")
   ? localStorage.getItem("userToken")
   : null;
@@ -14,7 +13,7 @@ const initialState = {
   error: null,
   success: false,
   name,
-  id: null,
+  user_id: null,
   authorized: false,
   signInModal: false,
   signUpModal: false,
@@ -29,7 +28,7 @@ const authSlice = createSlice({
       localStorage.removeItem("user_id");
       localStorage.removeItem("name");
       state.loading = false;
-      state.id = null;
+      state.user_id = null;
       state.userToken = null;
       state.error = null;
       state.name = null;
@@ -38,7 +37,7 @@ const authSlice = createSlice({
     getAuth: (state, action) => {
       state.name = action.payload.name;
       state.authorized = action.payload.success;
-      state.id = action.payload.id;
+      state.user_id = action.payload.id;
     },
     changeSignInModal: (state, action) => {
       state.signInModal = action.payload;

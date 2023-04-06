@@ -140,13 +140,13 @@ const addCoin = errorWrapper(async (req, res, next) => {
 
 const editCoin = errorWrapper(async (req, res, next) => {
   const { coin_id } = req.params;
-  const { title, description, image } = req.body;
+  const updatedFields = req.body;
 
   let coin = await Coin.findById(coin_id);
 
-  coin.title = title;
-  coin.description = description;
-  coin.image = image;
+  Object.keys(updatedFields).forEach((key) => {
+    coin[key] = updatedFields[key];
+  });
 
   coin = await coin.save();
 
@@ -155,6 +155,7 @@ const editCoin = errorWrapper(async (req, res, next) => {
     data: coin,
   });
 });
+
 const deleteCoin = errorWrapper(async (req, res, next) => {
   const coin_id = req.params.coin_id;
 

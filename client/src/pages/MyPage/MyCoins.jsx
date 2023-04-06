@@ -5,6 +5,7 @@ import Serach from "../../components/Search/Serach.jsx";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import MyCoin from "./MyCoin.jsx";
+import { toast } from "react-toastify";
 
 const MyCoinPage = () => {
   const params = useParams();
@@ -21,14 +22,14 @@ const MyCoinPage = () => {
         const fetchData = await axios.get(API_URI);
         setMyCoins(fetchData.data.data);
       } catch (error) {
-        console.log(error);
+        toast.error("Something went wrong", {
+          position: "top-left",
+        });
       }
     };
 
     getCoin();
   }, []);
-
-  console.log(myCoins);
 
   return (
     <>

@@ -3,7 +3,7 @@ import "./App.css";
 import Home from "./pages/Home/Home.jsx";
 import ProfileHeader from "./components/Header/ProfileHeader.jsx";
 import Header from "./components/Header/Header.jsx";
-import Modal from "./components/Modal/Modal.jsx";
+import CoinAdd from "./components/Modal/CoinAdd.jsx";
 import { useSelector } from "react-redux";
 
 import CategoryModal from "./components/Modal/Category.jsx";
@@ -12,6 +12,8 @@ import Register from "./components/Auth/Register.jsx";
 import CoinListPage from "./pages/Coinlist/CoinListPage.jsx";
 import CoinPage from "./pages/Coin/CoinPage.jsx";
 import MyCoins from "./pages/MyPage/MyCoins.jsx";
+import getAuthorized from "./utilities/getAuthorized.js";
+import { getAuth } from "./features/auth/authSlice.js";
 
 function App() {
   const { editModal, categoryModal } = useSelector((state) => state.modal);
@@ -23,7 +25,7 @@ function App() {
 
       {signInModal && <Login />}
       {signUpModal && <Register />}
-      {editModal && <Modal />}
+      {editModal && <CoinAdd />}
       {categoryModal && <CategoryModal />}
 
       <Routes>
@@ -36,7 +38,14 @@ function App() {
             </RouteControl>
           }
         />
-        <Route path="/my_coins/" element={<MyCoins />} />
+        <Route
+          path="/my_coins/"
+          element={
+            <RouteControl>
+              <MyCoins />
+            </RouteControl>
+          }
+        />
         <Route path="/coins/:coin_id" element={<CoinPage />} />
         <Route path="/coins/" element={<CoinListPage />} />
         <Route path="/category/:_id" element={<CoinListPage />} />
@@ -55,3 +64,13 @@ export const RouteControl = ({ children }) => {
     return <Navigate to="/" />;
   }
 };
+
+// export const RouteControl = ({ children }) => {
+//   getAuthorized().then((res) => {
+//     if (res) {
+//       return children;
+//     } else {
+//       return <Navigate to="/" />;
+//     }
+//   });
+// };

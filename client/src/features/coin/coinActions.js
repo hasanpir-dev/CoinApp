@@ -73,18 +73,51 @@ export const addCoin = createAsyncThunk(
   }
 );
 export const editCoin = createAsyncThunk(
-  "coin/edit",
-  async ({ title, description, image }, { rejectWithValue }) => {
+  "coin/editCoin",
+  async (
+    {
+      title,
+      faceValue,
+      year,
+      price,
+      country,
+      metal,
+      shortDesc,
+      longDesc,
+      quality,
+      weight,
+      imgObverse,
+      imgReverse,
+      category,
+      _id,
+    },
+    { rejectWithValue }
+  ) => {
+    let authToken = localStorage.getItem("userToken");
     try {
       // configure header's Content-Type as JSON
       const config = {
         headers: {
           "Content-Type": "application/json",
+          Authorization: "Bearer: " + authToken,
         },
       };
-      const { data } = await axios.post(
-        `${backendURL}/api/auth/login`,
-        { title, description, image },
+      const { data } = await axios.put(
+        `${backendURL}/api/coins/${_id}/edit`,
+        {
+          title,
+          faceValue,
+          year,
+          price,
+          country,
+          metal,
+          shortDesc,
+          longDesc,
+          quality,
+          weight,
+          imgObverse,
+          imgReverse,
+        },
         config
       );
 
@@ -162,6 +195,31 @@ export const getAllCoins = createAsyncThunk(
       const { data } = await axios.get(
         `${backendURL}/api/coins?title=${title}&year=${yearFrom},${yearTo}&price=${priceFrom},${priceTo}&country=${country}&metal=${metal}&quality=${quality}`
       );
+      return data;
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(
+          toast.error(error.response.data.message, {
+            position: "top-left",
+            autoClose: 5000,
+          })
+        );
+      } else {
+        return rejectWithValue(
+          toast.error(error.message, {
+            position: "top-left",
+            autoClose: 5000,
+          })
+        );
+      }
+    }
+  }
+);
+export const getSingleCoin = createAsyncThunk(
+  "coin/getSingleCoin",
+  async (_id, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get(`${backendURL}/api/coins/${_id}`);
       return data;
     } catch (error) {
       if (error.response && error.response.data.message) {

@@ -7,12 +7,12 @@ import AuthHeader from "./AuthHeader.jsx";
 import ProfileHeader from "./ProfileHeader.jsx";
 import getAuthorized from "../../utilities/getAuthorized.js";
 import { getAuth } from "../../features/auth/authSlice.js";
+import { getCategories } from "../../features/category/categoryActions.js";
 
 const Header = () => {
   const navigate = useNavigate();
   const authorized = useSelector((state) => state.auth.authorized);
   const dispatch = useDispatch();
-  const auth = useSelector((state) => state.auth);
   useEffect(() => {
     getAuthorized().then((res) => {
       if (res) {
@@ -24,7 +24,11 @@ const Header = () => {
     });
   }, [authorized]);
 
-  console.log(auth);
+  const title = useSelector((state) => state.category.title);
+
+  useEffect(() => {
+    dispatch(getCategories({ title }));
+  }, [dispatch, title]);
 
   return (
     <div className="h-20 bg-violet-600 flex items-center justify-between px-5">

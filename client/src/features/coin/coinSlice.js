@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addCoin, getAllCoins, getCoins } from "./coinActions.js";
+import {
+  addCoin,
+  getAllCoins,
+  getCoins,
+  getSingleCoin,
+} from "./coinActions.js";
 
 const initialState = {
   loading: false,
@@ -17,6 +22,22 @@ const initialState = {
     yearFrom: "",
     yearTo: "",
   },
+  editCoin: false,
+  coin: {
+    title: "",
+    faceValue: "",
+    year: "",
+    price: "",
+    country: "",
+    metal: "",
+    shortDesc: "",
+    longDesc: "",
+    quality: "",
+    weight: "",
+    imgObverse: "",
+    imgReverse: "",
+    category: "",
+  },
 };
 
 const coinSlice = createSlice({
@@ -25,6 +46,9 @@ const coinSlice = createSlice({
   reducers: {
     filterCoin: (state, action) => {
       state.filterCoins = { ...state.filterCoins, ...action.payload };
+    },
+    isEditCoin: (state, action) => {
+      state.editCoin = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -64,9 +88,21 @@ const coinSlice = createSlice({
       state.loading = false;
       state.error = payload;
     });
+    builder.addCase(getSingleCoin.pending, (state) => {
+      state.isLoading = true;
+      state.error = null;
+    });
+    builder.addCase(getSingleCoin.fulfilled, (state, { payload }) => {
+      state.loading = false;
+      state.coin = payload.data;
+    });
+    builder.addCase(getSingleCoin.rejected, (state, { payload }) => {
+      state.loading = false;
+      state.error = payload;
+    });
   },
 });
 
-export const { filterCoin } = coinSlice.actions;
+export const { filterCoin, isEditCoin } = coinSlice.actions;
 
 export default coinSlice.reducer;

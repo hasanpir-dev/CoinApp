@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { changeEditModal } from "../../features/editModalSlice.js";
+import { useDispatch, useSelector } from "react-redux";
+
+import { getSingleCoin } from "../../features/coin/coinActions.js";
+import { isEditCoin } from "../../features/coin/coinSlice.js";
 
 const MyCoin = ({ title, shortDesc, imgObverse, _id }) => {
   const navigate = useNavigate();
 
-  console.log(_id);
-  const API_URI = `http://localhost:4000/api/coins/${_id}/delete`;
+  const API_URI = `http://localhost:4000/api/coins/`;
+
+  const dispatch = useDispatch();
 
   const deleteCoinFromServer = async () => {
     let authToken = localStorage.getItem("userToken");
@@ -18,7 +24,7 @@ const MyCoin = ({ title, shortDesc, imgObverse, _id }) => {
       },
     };
     try {
-      const res = await axios.delete(`${API_URI}`, config);
+      const res = await axios.delete(`${API_URI}${_id}/delete`, config);
       toast.success("You delete coin successfully.", {
         position: "top-left",
       });
@@ -31,6 +37,29 @@ const MyCoin = ({ title, shortDesc, imgObverse, _id }) => {
       deleteCoinFromServer();
     }
   };
+
+  const [coin, setCoin] = useState([]);
+
+  useEffect(() => {
+    const getCoin = async () => {
+      try {
+        const fetchData = await axios.get(`${API_URI}${_id}`);
+        setCoin(fetchData.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getCoin();
+  }, []);
+
+  const editCoin = (e) => {
+    console.log(e.target.outerText);
+    dispatch(getSingleCoin(_id));
+    dispatch(changeEditModal(true));
+    dispatch(isEditCoin(true));
+  };
+
   return (
     <div className="flex mb-6">
       <div className="flex mb-6 w-8/12">
@@ -47,7 +76,10 @@ const MyCoin = ({ title, shortDesc, imgObverse, _id }) => {
         </div>
       </div>
       <div className="flex mb-6">
-        <div className="cursor-pointer flex items-center justify-center h-12 w-32 text-center bg-gray-400 hover:bg-gray-500 text-white rounded mr-7">
+        <div
+          onClick={(e) => editCoin(e)}
+          className="cursor-pointer flex items-center justify-center h-12 w-32 text-center bg-gray-400 hover:bg-gray-500 text-white rounded mr-7"
+        >
           Edit
         </div>
         <div
