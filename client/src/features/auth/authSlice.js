@@ -65,7 +65,6 @@ const authSlice = createSlice({
       state.error = null;
     });
     builder.addCase(registerUser.fulfilled, (state, payload) => {
-      console.log(payload);
       state.loading = false;
       state.success = true;
       state.signUpModal = false;

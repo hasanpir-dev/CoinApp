@@ -54,7 +54,6 @@ const MyCoin = ({ title, shortDesc, imgObverse, _id }) => {
   }, []);
 
   const editCoin = (e) => {
-    console.log(e.target.outerText);
     dispatch(getSingleCoin(_id));
     dispatch(changeEditModal(true));
     dispatch(isEditCoin(true));

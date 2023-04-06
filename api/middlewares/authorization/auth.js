@@ -57,7 +57,6 @@ const getCoinOwnerAccess = errorWrapper(async (req, res, next) => {
   const userId = req.user.id;
   const coinId = req.params.coin_id;
 
-  console.log(userId, coinId);
   const coin = await Coin.findById(coinId);
 
   if (coin.user != userId) {
