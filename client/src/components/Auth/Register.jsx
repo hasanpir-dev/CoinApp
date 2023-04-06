@@ -13,9 +13,7 @@ import {
 } from "../../features/auth/authSlice.js";
 
 const Register = ({}) => {
-  const { loading, userInfo, success, userToken } = useSelector(
-    (state) => state.auth
-  );
+  const { loading, userInfo, success } = useSelector((state) => state.auth);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();

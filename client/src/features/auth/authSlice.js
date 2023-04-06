@@ -15,6 +15,8 @@ const initialState = {
   error: null,
   success: false,
   name,
+  id: null,
+  authorized: false,
   signInModal: false,
   signUpModal: false,
 };
@@ -32,6 +34,12 @@ const authSlice = createSlice({
       state.error = null;
       state.name = null;
       state.userInfo = null;
+      state.authorized = false;
+    },
+    getAuth: (state, action) => {
+      state.name = action.payload.name;
+      state.authorized = action.payload.success;
+      state.id = action.payload.id;
     },
     changeSignInModal: (state, action) => {
       state.signInModal = action.payload;
@@ -40,7 +48,6 @@ const authSlice = createSlice({
       state.signUpModal = action.payload;
     },
   },
-
   extraReducers: (builder) => {
     builder.addCase(userLogin.pending, (state) => {
       state.isLoading = true;
@@ -74,7 +81,7 @@ const authSlice = createSlice({
   },
 });
 
-export const { logout, changeSignInModal, changeSignUpModal } =
+export const { logout, getAuth, changeSignInModal, changeSignUpModal } =
   authSlice.actions;
 
 export default authSlice.reducer;
