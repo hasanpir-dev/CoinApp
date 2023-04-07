@@ -12,8 +12,6 @@ import Register from "./components/Auth/Register.jsx";
 import CoinListPage from "./pages/Coinlist/CoinListPage.jsx";
 import CoinPage from "./pages/Coin/CoinPage.jsx";
 import MyCoins from "./pages/MyPage/MyCoins.jsx";
-import getAuthorized from "./utilities/getAuthorized.js";
-import { getAuth } from "./features/auth/authSlice.js";
 
 function App() {
   const { editModal, categoryModal } = useSelector((state) => state.modal);
@@ -57,20 +55,19 @@ function App() {
 
 export default App;
 
+// export const RouteControl = ({ children }) => {
+//   if (localStorage.getItem("name")) {
+//     return children;
+//   } else {
+//     return <Navigate to="/" />;
+//   }
+// };
+
 export const RouteControl = ({ children }) => {
-  if (localStorage.getItem("name")) {
+  const authorized = useSelector((state) => state.auth.authorized);
+  if (authorized) {
     return children;
   } else {
     return <Navigate to="/" />;
   }
 };
-
-// export const RouteControl = ({ children }) => {
-//   getAuthorized().then((res) => {
-//     if (res) {
-//       return children;
-//     } else {
-//       return <Navigate to="/" />;
-//     }
-//   });
-// };

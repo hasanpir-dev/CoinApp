@@ -4,7 +4,6 @@ import { GrClose } from "react-icons/gr";
 import { changeEditModal } from "../../features/editModalSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 import { addCoin, editCoin } from "../../features/coin/coinActions.js";
-import { isEditCoin } from "../../features/coin/coinSlice.js";
 
 const CoinAdd = () => {
   const [data, setData] = useState({
@@ -49,7 +48,6 @@ const CoinAdd = () => {
     isEdit && setData(coin);
   }, [coin]);
 
-  console.log();
   const dispatch = useDispatch();
   const onChangeFn = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });

@@ -215,6 +215,59 @@ export const getAllCoins = createAsyncThunk(
     }
   }
 );
+
+export const getUserCoins = createAsyncThunk(
+  "coin/getUserCoins",
+  async (
+    {
+      user_id,
+      title,
+      country,
+      metal,
+      quality,
+      priceFrom,
+      priceTo,
+      yearFrom,
+      yearTo,
+    },
+    { rejectWithValue }
+  ) => {
+    console.log(
+      user_id,
+      title,
+      country,
+      metal,
+      quality,
+      priceFrom,
+      priceTo,
+      yearFrom,
+      yearTo
+    );
+    try {
+      const { data } = await axios.get(
+        `${backendURL}/api/users/${user_id}/coins?title=${title}&year=${yearFrom},${yearTo}&price=${priceFrom},${priceTo}&country=${country}&metal=${metal}&quality=${quality}`
+      );
+      return data;
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(
+          toast.error(error.response.data.message, {
+            position: "top-left",
+            autoClose: 5000,
+          })
+        );
+      } else {
+        return rejectWithValue(
+          toast.error(error.message, {
+            position: "top-left",
+            autoClose: 5000,
+          })
+        );
+      }
+    }
+  }
+);
+
 export const getSingleCoin = createAsyncThunk(
   "coin/getSingleCoin",
   async (_id, { rejectWithValue }) => {

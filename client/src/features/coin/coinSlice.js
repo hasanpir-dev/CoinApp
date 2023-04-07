@@ -4,6 +4,7 @@ import {
   getAllCoins,
   getCoins,
   getSingleCoin,
+  getUserCoins,
 } from "./coinActions.js";
 
 const initialState = {
@@ -12,6 +13,7 @@ const initialState = {
   success: false,
   coins: [],
   allCoins: [],
+  myCoins: [],
   filterCoins: {
     title: "",
     country: "",
@@ -85,6 +87,18 @@ const coinSlice = createSlice({
       state.allCoins = payload.data;
     });
     builder.addCase(getAllCoins.rejected, (state, { payload }) => {
+      state.loading = false;
+      state.error = payload;
+    });
+    builder.addCase(getUserCoins.pending, (state) => {
+      state.isLoading = true;
+      state.error = null;
+    });
+    builder.addCase(getUserCoins.fulfilled, (state, { payload }) => {
+      state.loading = false;
+      state.myCoins = payload.data;
+    });
+    builder.addCase(getUserCoins.rejected, (state, { payload }) => {
       state.loading = false;
       state.error = payload;
     });

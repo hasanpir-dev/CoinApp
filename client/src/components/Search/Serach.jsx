@@ -4,21 +4,27 @@ import Filter from "../Filter/Filter.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { changeFilterModal } from "../../features/editModalSlice.js";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { getAllCoins, getCoins } from "../../features/coin/coinActions.js";
+import {
+  getAllCoins,
+  getCoins,
+  getUserCoins,
+} from "../../features/coin/coinActions.js";
 import { filterCoin } from "../../features/coin/coinSlice.js";
 import { categorySearch } from "../../features/category/categorySlice.js";
-import { getCategories } from "../../features/category/categoryActions.js";
 
 const Search = () => {
   const [title, setTitle] = useState("");
   const dispatch = useDispatch();
   const filterData = useSelector((state) => state.coin.filterCoins);
-  const categoryTitle = useSelector((state) => state.category.title);
+  const authorized = useSelector((state) => state.auth.authorized);
   const params = useParams();
   const id = params._id;
   const location = useLocation();
+  const user_id = useSelector((state) => state.auth.user_id);
 
   const { filterModal } = useSelector((state) => state.modal);
+  const coix = useSelector((state) => state.coin.myCoins);
+
   const openFilter = () => {
     dispatch(changeFilterModal(true));
   };
@@ -28,6 +34,8 @@ const Search = () => {
 
   useEffect(() => {
     location.pathname === "/coins/" && dispatch(getAllCoins({ ...filterData }));
+    location.pathname === "/my_coins/" &&
+      dispatch(getUserCoins({ user_id, ...filterData }));
     id && dispatch(getCoins({ id, ...filterData }));
   }, [dispatch, filterData]);
 
@@ -37,19 +45,25 @@ const Search = () => {
       : dispatch(filterCoin({ title }));
   }, [dispatch, title]);
 
+  console.log(coix);
+
   const navigate = useNavigate();
 
   return (
     <>
-      <div className="w-6/12">
+      <div className="">
         <div>
           <h1 className="text-5xl text-gray-700 font-bold">Coin Social App</h1>
         </div>
         <div className="flex flex-col mb-2.5">
           <label className="text-sm font-medium my-1.5">Search</label>
-          <div className="max-w-lg flex justify-between">
+          <div
+            className={`flex justify-between ${
+              authorized ? "w-8/12" : "w-6/12"
+            }`}
+          >
             <input
-              className="border rounded-md outline-none text-sm p-4 w-full mr-7"
+              className="border rounded-md outline-none text-sm p-4 w-full max-w-sm mr-7"
               value={title}
               onChange={(e) => {
                 setTitle(e.target.value);
@@ -60,7 +74,7 @@ const Search = () => {
                 onClick={() => {
                   navigate("/");
                 }}
-                className="border rounded-md border-violet-600 w-48 cursor-pointer text-sm py-4 px-9 hover:bg-violet-800 text-center bg-violet-600 text-white"
+                className="border rounded-md border-violet-600 w-36 cursor-pointer text-sm py-4 px-9 hover:bg-violet-800 text-center bg-violet-600 text-white"
               >
                 Categories
               </button>
@@ -69,9 +83,19 @@ const Search = () => {
                 onClick={() => {
                   navigate("/coins/");
                 }}
-                className="border rounded-md border-violet-600 w-48 cursor-pointer text-sm py-4 px-9 hover:bg-violet-800 text-center bg-violet-600 text-white"
+                className="border rounded-md border-violet-600 w-36 cursor-pointer text-sm py-4 px-9 hover:bg-violet-800 text-center bg-violet-600 text-white"
               >
                 All Coins
+              </button>
+            )}
+            {authorized && (
+              <button
+                onClick={() => {
+                  navigate("/my_coins/");
+                }}
+                className="border rounded-md border-violet-600 w-36 cursor-pointer text-sm py-4 px-9 hover:bg-violet-800 text-center bg-violet-600 text-white"
+              >
+                My Coins
               </button>
             )}
           </div>

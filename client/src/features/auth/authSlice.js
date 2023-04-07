@@ -55,6 +55,7 @@ const authSlice = createSlice({
       state.loading = false;
       state.userToken = payload.userToken;
       state.signInModal = false;
+      state.authorized = true;
     });
     builder.addCase(userLogin.rejected, (state, { payload }) => {
       state.loading = false;
@@ -64,7 +65,7 @@ const authSlice = createSlice({
       state.loading = true;
       state.error = null;
     });
-    builder.addCase(registerUser.fulfilled, (state, payload) => {
+    builder.addCase(registerUser.fulfilled, (state) => {
       state.loading = false;
       state.success = true;
       state.signUpModal = false;

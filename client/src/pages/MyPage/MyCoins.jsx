@@ -14,6 +14,7 @@ const MyCoinPage = () => {
   const loading = useSelector((state) => state.coin.loading);
   const [myCoins, setMyCoins] = useState([]);
 
+  //`${backendURL}/api/coins?title=${title}&year=${yearFrom},${yearTo}&price=${priceFrom},${priceTo}&country=${country}&metal=${metal}&quality=${quality}`
   useEffect(() => {
     const user_id = localStorage.getItem("user_id");
     const API_URI = `http://localhost:4000/api/users/${user_id}/coins/`;
