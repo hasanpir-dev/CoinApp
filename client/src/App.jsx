@@ -12,6 +12,7 @@ import Register from "./components/Auth/Register.jsx";
 import CoinListPage from "./pages/Coinlist/CoinListPage.jsx";
 import CoinPage from "./pages/Coin/CoinPage.jsx";
 import MyCoins from "./pages/MyPage/MyCoins.jsx";
+import NotFoundPage from "./pages/404.jsx";
 
 function App() {
   const { editModal, categoryModal } = useSelector((state) => state.modal);
@@ -47,7 +48,7 @@ function App() {
         <Route path="/coins/:coin_id" element={<CoinPage />} />
         <Route path="/coins/" element={<CoinListPage />} />
         <Route path="/category/:_id" element={<CoinListPage />} />
-        <Route path="/*" element={<h1>404 Not Found</h1>}></Route>
+        <Route path="/*" element={<NotFoundPage />}></Route>
       </Routes>
     </>
   );

@@ -1,4 +1,4 @@
-import Coin from "../../components/Coinlist/Coin/Coin.jsx";
+import Coin from "../../components/Coin/Coin.jsx";
 
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";

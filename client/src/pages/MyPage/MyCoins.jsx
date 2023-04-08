@@ -6,12 +6,15 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import MyCoin from "./MyCoin.jsx";
 import { toast } from "react-toastify";
+import filterItems from "../../utilities/filterİtems.js";
 
 const MyCoinPage = () => {
   const params = useParams();
   const id = params._id;
 
   const loading = useSelector((state) => state.coin.loading);
+  const filtercoins = useSelector((state) => state.coin.filterCoins);
+
   const [myCoins, setMyCoins] = useState([]);
 
   //`${backendURL}/api/coins?title=${title}&year=${yearFrom},${yearTo}&price=${priceFrom},${priceTo}&country=${country}&metal=${metal}&quality=${quality}`
@@ -32,6 +35,8 @@ const MyCoinPage = () => {
     getCoin();
   }, []);
 
+  const filteredItems = filterItems(myCoins, filtercoins);
+
   return (
     <>
       <div className="p-12 w-[1280px] m-auto">
@@ -40,7 +45,7 @@ const MyCoinPage = () => {
           {loading ? (
             <Spinner />
           ) : (
-            myCoins?.map((coin) => {
+            filteredItems?.map((coin) => {
               return <MyCoin key={coin._id} {...coin} id={id} />;
             })
           )}
