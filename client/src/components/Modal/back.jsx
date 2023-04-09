@@ -96,7 +96,6 @@ const CoinAdd = () => {
         })
       );
     }
-    dispatch(changeEditModal(false));
   };
 
   return (

@@ -36,3 +36,30 @@ export const userLoginSchema = yup.object().shape({
     })
     .required("You must enter a password"),
 });
+
+export const coinSchema = yup.object().shape({
+  title: yup
+    .string()
+    .min(5, "Please enter minimum 5 characters")
+    .max(30, "Please enter maximum 30 characters")
+    .required("Please provide a title"),
+  faceValue: yup.string().required("Please provide a value"),
+  year: yup.number().required("Please provide a year"),
+  price: yup.number().required("Please provide a price"),
+  country: yup.string().required("Please provide a country"),
+  metal: yup.string().required("Please provide a metal"),
+  shortDesc: yup
+    .string()
+    .min(8, "Please enter minimum 8 characters")
+    .max(250, "Please enter maximum 250 characters")
+    .required("Please provide a short description"),
+  longDesc: yup
+    .string()
+    .min(16, "Please enter minimum 16 characters")
+    .max(650, "Please enter maximum 650 characters")
+    .required("Please provide a long description"),
+  quality: yup.string().required("Please provide a quality"),
+  weight: yup.string().required("Please provide a weight"),
+  imgObverse: yup.string().required("Please provide a observe image"),
+  imgReverse: yup.string().required("Please provide a reverse imag"),
+});
