@@ -4,16 +4,13 @@ import axios from "axios";
 import Spinner from "../../components/Spinner/Spinner.jsx";
 import "./CoinPage.css";
 import { IoMdHeart, IoMdHeartDislike } from "react-icons/io";
-
 import { useSelector } from "react-redux";
-
-const isLiked = (user_id, likes) => {
-  console.log(user_id, likes);
-  likes.some((like) => like === user_id);
-};
+import { toast } from "react-toastify";
+import isLiked from "../../utilities/isLiked.js";
 
 const CoinPage = () => {
   const params = useParams();
+  const authorized = useSelector((state) => state.auth.authorized);
   const coin_id = params.coin_id;
   const API_URI = `http://localhost:4000/api/coins/${coin_id}`;
   const user_id = useSelector((state) => state.auth.user_id);
@@ -21,14 +18,15 @@ const CoinPage = () => {
   const [coin, setCoin] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const authToken = useSelector((state) => state.auth.userToken);
 
   useEffect(() => {
     const getCoin = async () => {
       try {
-        const fetchData = await axios.get(API_URI);
-        setCoin(fetchData.data);
+        const { data } = await axios.get(API_URI);
+        setCoin(data.data);
       } catch (error) {
-        setError(true);
+        setError(error);
       } finally {
         setLoading(false);
       }
@@ -37,10 +35,54 @@ const CoinPage = () => {
     getCoin();
   }, []);
 
+  const like = async () => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer: " + authToken,
+        },
+      };
+      await axios.get(`${API_URI}/like`, config);
+      toast.info("You have liked successfully.", {
+        position: "top-left",
+      });
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
+      setCoin({ ...coin, likeCount: (coin.likeCount += 1) });
+      setCoin({ ...coin, likes: [...coin.likes, user_id] });
+    }
+  };
+  const undo_like = async () => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer: " + authToken,
+        },
+      };
+      await axios.get(`${API_URI}/undo_like`, config);
+      toast.info("You have unliked successfully.", {
+        position: "top-left",
+      });
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
+      setCoin({ ...coin, likeCount: (coin.likeCount -= 1) });
+      setCoin({
+        ...coin,
+        likes: coin.likes.filter((like) => like !== user_id),
+      });
+    }
+  };
+
   if (error) {
     return (
       <div className="flex flex-col justify-center items-center py-12">
-        <h2 className="text-2xl font-bold mb-4">Coin is not found.</h2>
+        <h2 className="text-2xl font-bold mb-4">{error.message}</h2>
         <button
           className="bg-violet-500 hover:bg-violet-700 text-white py-3 px-6 rounded-lg"
           onClick={() => navigate(-1)}
@@ -55,11 +97,11 @@ const CoinPage = () => {
     return <Spinner />;
   }
 
-  console.log(isLiked(user_id, coin.data.likes));
+  const userLiked = isLiked(user_id, coin.likes);
 
   return (
     <>
-      {coin.data ? (
+      {coin ? (
         <div className="flex justify-center py-12 w-[1280px] m-auto">
           <div className="px-7">
             <div
@@ -69,7 +111,7 @@ const CoinPage = () => {
                 height: "300px",
               }}
             >
-              <img src={coin.data.imgObverse} alt="coin" />
+              <img src={coin.imgObverse} alt="coin" />
             </div>
             <div
               style={{
@@ -77,51 +119,67 @@ const CoinPage = () => {
                 height: "300px",
               }}
             >
-              <img src={coin.data.imgReverse} alt="" />
+              <img src={coin.imgReverse} alt="" />
             </div>
           </div>
           <div className="bg-gray-200 px-10 py-5 flex flex-col items-start">
-            <h2 className="font-bold text-2xl mb-4">{coin.data.title}</h2>
-            <h5 className="text-xs w-96 mb-3">{coin.data.shortDesc}</h5>
-            <p className="text-xs mb-10 w-96">{coin.data.longDesc}</p>
+            <h2 className="font-bold text-2xl mb-4">{coin.title}</h2>
+            <h5 className="text-xs w-96 mb-3">{coin.shortDesc}</h5>
+            <p className="text-xs mb-10 w-96">{coin.longDesc}</p>
             <div className="mb-4">
               <table className="text-xs w-96">
                 <tbody>
                   <tr>
                     <td>Issuing Country</td>
-                    <td>{coin.data.country}</td>
+                    <td>{coin.country}</td>
                   </tr>
                   <tr>
                     <td>Composition</td>
-                    <td>{coin.data.metal}</td>
+                    <td>{coin.metal}</td>
                   </tr>
                   <tr>
                     <td>Quality</td>
-                    <td>{coin.data.quality}</td>
+                    <td>{coin.quality}</td>
                   </tr>
                   <tr>
                     <td>Denomination</td>
-                    <td>{coin.data.faceValue}</td>
+                    <td>{coin.faceValue}</td>
                   </tr>
                   <tr>
                     <td>Year</td>
-                    <td>{coin.data.year}</td>
+                    <td>{coin.year}</td>
                   </tr>
                   <tr>
                     <td>Weight</td>
-                    <td>{coin.data.weight}</td>
+                    <td>{coin.weight}</td>
                   </tr>
                   <tr>
                     <td>Price</td>
-                    <td>{coin.data.price} $</td>
+                    <td>{coin.price} $</td>
                   </tr>
                 </tbody>
               </table>
             </div>
             <div className="flex items-center">
-              <IoMdHeart size={50} color={"#7C3AED"} />{" "}
-              <IoMdHeartDislike size={50} /> {coin.data.likeCount} - liked this
-              coin
+              {authorized && (
+                <>
+                  {userLiked ? (
+                    <IoMdHeartDislike
+                      onClick={undo_like}
+                      size={50}
+                      className="cursor-pointer"
+                    />
+                  ) : (
+                    <IoMdHeart
+                      onClick={like}
+                      size={50}
+                      color={"#7C3AED"}
+                      className="cursor-pointer"
+                    />
+                  )}
+                </>
+              )}
+              {coin.likeCount} likes
             </div>
             <span
               onClick={() => navigate(-1)}

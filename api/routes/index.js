@@ -8,10 +8,10 @@ const {
   getSingleCoin,
   deleteCoin,
   editCoin,
+  likeCoin,
+  undoLikeCoin,
 } = require("../controllers/coin");
-const {
-  checkCategoryAndCoinExist,
-} = require("../middlewares/database/databaseErrorHelpers");
+const {} = require("../middlewares/database/databaseErrorHelpers");
 const {
   getAccessToRoute,
   getCoinOwnerAccess,
@@ -31,6 +31,10 @@ router.delete(
   [getAccessToRoute, getCoinOwnerAccess],
   deleteCoin
 );
+
+router.get("/coins/:coin_id/like", getAccessToRoute, likeCoin);
+router.get("/coins/:coin_id/undo_like", getAccessToRoute, undoLikeCoin);
+
 router.use("/auth", auth);
 // router.use("/admin", admin);
 router.use("/users", user);

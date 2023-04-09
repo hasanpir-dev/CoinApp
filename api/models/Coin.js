@@ -9,7 +9,7 @@ const CoinSchema = new Schema({
     type: String,
     required: [true, "Please provide a title"],
     minlength: [5, "Please provide title at least 5 characters"],
-    maxlength: [20, "Please provide title less than 20 characters"],
+    maxlength: [30, "Please provide title less than 25 characters"],
   },
   faceValue: {
     type: String,
@@ -35,11 +35,19 @@ const CoinSchema = new Schema({
     type: String,
     required: [true, "Please provide a short description"],
     minlength: [8, "Please provide a description at least 10 characters"],
+    maxlength: [
+      250,
+      "Please provide a long description at least 50 characters",
+    ],
   },
   longDesc: {
     type: String,
     required: [true, "Please provide a description"],
-    minlength: [16, "Please provide a long description at least 10 characters"],
+    minlength: [16, "Please provide a long description at least 16 characters"],
+    maxlength: [
+      650,
+      "Please provide a long description at least 700 characters",
+    ],
   },
   quality: {
     type: String,

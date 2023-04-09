@@ -183,7 +183,7 @@ const deleteCoin = errorWrapper(async (req, res, next) => {
 });
 
 const likeCoin = errorWrapper(async (req, res, next) => {
-  const { coin_id } = req.params;
+  const coin_id = req.params.coin_id;
 
   const coin = await Coin.findById(coin_id);
 
