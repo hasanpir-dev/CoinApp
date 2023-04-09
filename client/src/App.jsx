@@ -38,7 +38,8 @@ function App() {
           }
         />
         <Route
-          path="/my_coins/"
+          exat
+          path="/my_coins"
           element={
             <RouteControl>
               <MyCoins />
@@ -46,7 +47,7 @@ function App() {
           }
         />
         <Route path="/coins/:coin_id" element={<CoinPage />} />
-        <Route path="/coins/" element={<CoinListPage />} />
+        <Route exat path="/coins" element={<CoinListPage />} />
         <Route path="/category/:_id" element={<CoinListPage />} />
         <Route path="/*" element={<NotFoundPage />}></Route>
       </Routes>

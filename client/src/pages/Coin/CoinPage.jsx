@@ -3,11 +3,20 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Spinner from "../../components/Spinner/Spinner.jsx";
 import "./CoinPage.css";
+import { IoMdHeart, IoMdHeartDislike } from "react-icons/io";
+
+import { useSelector } from "react-redux";
+
+const isLiked = (user_id, likes) => {
+  console.log(user_id, likes);
+  likes.some((like) => like === user_id);
+};
 
 const CoinPage = () => {
   const params = useParams();
   const coin_id = params.coin_id;
   const API_URI = `http://localhost:4000/api/coins/${coin_id}`;
+  const user_id = useSelector((state) => state.auth.user_id);
   const navigate = useNavigate();
   const [coin, setCoin] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -45,6 +54,8 @@ const CoinPage = () => {
   if (loading) {
     return <Spinner />;
   }
+
+  console.log(isLiked(user_id, coin.data.likes));
 
   return (
     <>
@@ -106,6 +117,11 @@ const CoinPage = () => {
                   </tr>
                 </tbody>
               </table>
+            </div>
+            <div className="flex items-center">
+              <IoMdHeart size={50} color={"#7C3AED"} />{" "}
+              <IoMdHeartDislike size={50} /> {coin.data.likeCount} - liked this
+              coin
             </div>
             <span
               onClick={() => navigate(-1)}

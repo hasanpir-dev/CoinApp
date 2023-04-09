@@ -21,10 +21,11 @@ const Search = () => {
   const id = params._id;
   const location = useLocation();
   const user_id = useSelector((state) => state.auth.user_id);
+  const userName = useSelector((state) => state.auth.name);
 
   const { filterModal } = useSelector((state) => state.modal);
-  const coix = useSelector((state) => state.coin.myCoins);
 
+  const navigate = useNavigate();
   const openFilter = () => {
     dispatch(changeFilterModal(true));
   };
@@ -33,7 +34,7 @@ const Search = () => {
   };
 
   useEffect(() => {
-    location.pathname === "/coins/" && dispatch(getAllCoins({ ...filterData }));
+    location.pathname === "/coins" && dispatch(getAllCoins({ ...filterData }));
     location.pathname === "/my_coins/" &&
       dispatch(getUserCoins({ user_id, ...filterData }));
     id && dispatch(getCoins({ id, ...filterData }));
@@ -44,10 +45,6 @@ const Search = () => {
       ? dispatch(categorySearch(title))
       : dispatch(filterCoin({ title }));
   }, [dispatch, title]);
-
-  console.log(coix);
-
-  const navigate = useNavigate();
 
   return (
     <>
@@ -69,7 +66,7 @@ const Search = () => {
                 setTitle(e.target.value);
               }}
             />
-            {location.pathname === "/coins/" ? (
+            {location.pathname === "/coins" ? (
               <button
                 onClick={() => {
                   navigate("/");
@@ -81,7 +78,7 @@ const Search = () => {
             ) : (
               <button
                 onClick={() => {
-                  navigate("/coins/");
+                  navigate("/coins");
                 }}
                 className="border rounded-md border-violet-600 w-36 cursor-pointer text-sm py-4 px-9 hover:bg-violet-800 text-center bg-violet-600 text-white"
               >
@@ -91,11 +88,11 @@ const Search = () => {
             {authorized && (
               <button
                 onClick={() => {
-                  navigate("/my_coins/");
+                  navigate("/my_coins");
                 }}
-                className="border rounded-md border-violet-600 w-36 cursor-pointer text-sm py-4 px-9 hover:bg-violet-800 text-center bg-violet-600 text-white"
+                className="border rounded-md border-violet-600 w-36 cursor-pointer text-sm py-4 hover:bg-violet-800 text-center bg-violet-600 text-white"
               >
-                My Coins
+                {userName} Coins
               </button>
             )}
           </div>
