@@ -1,7 +1,7 @@
 import Coin from "../../components/Coin/Coin.jsx";
 
 import { useSelector } from "react-redux";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Spinner from "../../components/Spinner/Spinner.jsx";
 import Serach from "../../components/Search/Serach.jsx";
 
@@ -13,9 +13,6 @@ const CoinListPage = () => {
   const alLCoinsState = useSelector((state) => state.coin.allCoins);
   const loading = useSelector((state) => state.coin.loading);
   const coins = id ? coinsByCategorySate : alLCoinsState;
-
-  const [searchParams] = useSearchParams();
-  const filterData = useSelector((state) => state.coin.filterCoins);
 
   return (
     <>

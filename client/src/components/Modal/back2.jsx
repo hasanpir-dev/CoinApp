@@ -50,7 +50,6 @@ const CoinAdd = () => {
     isEdit && setData(coin);
     isEdit && setInitialValues(coin);
   }, [coin]);
-  console.log(initialValues);
 
   const dispatch = useDispatch();
 
@@ -117,7 +116,6 @@ const CoinAdd = () => {
     validationSchema: coinSchema,
     onSubmit: onSubmit,
   });
-  console.log(initialValues);
 
   return (
     <div className="w-full h-screen bg-opacity-50 bg-black fixed top-0 left-0 right-0 bottom-0 z-50 flex justify-center items-center">

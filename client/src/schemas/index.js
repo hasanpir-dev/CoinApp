@@ -1,4 +1,5 @@
 import * as yup from "yup";
+import { useSelector } from "react-redux";
 
 const passwordRegex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
 export const userRegisterSchema = yup.object().shape({
@@ -62,4 +63,8 @@ export const coinSchema = yup.object().shape({
   weight: yup.string().required("Please provide a weight"),
   imgObverse: yup.string().required("Please provide a observe image"),
   imgReverse: yup.string().required("Please provide a reverse imag"),
+  category: yup
+    .string()
+    .min(1, "Please select a category")
+    .required("Please select a category"),
 });

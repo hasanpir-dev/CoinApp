@@ -4,26 +4,8 @@ import { toast } from "react-toastify";
 const backendURL = "http://localhost:4000";
 
 export const addCoin = createAsyncThunk(
-  "coin/add",
-  async (
-    {
-      title,
-      faceValue,
-      year,
-      price,
-      country,
-      metal,
-      shortDesc,
-      longDesc,
-      quality,
-      weight,
-      imgObverse,
-      imgReverse,
-      category,
-    },
-    { rejectWithValue }
-  ) => {
-    const id = category;
+  "coin/addCoin",
+  async ({ category, ...values }, { rejectWithValue }) => {
     try {
       let authToken = localStorage.getItem("userToken");
       const config = {
@@ -33,20 +15,9 @@ export const addCoin = createAsyncThunk(
         },
       };
       const data = await axios.post(
-        `${backendURL}/api/category/${id}/coins`,
+        `${backendURL}/api/category/${category}/coins`,
         {
-          title,
-          faceValue,
-          year,
-          price,
-          country,
-          metal,
-          shortDesc,
-          longDesc,
-          quality,
-          weight,
-          imgObverse,
-          imgReverse,
+          ...values,
         },
         config
       );
@@ -74,25 +45,7 @@ export const addCoin = createAsyncThunk(
 );
 export const editCoin = createAsyncThunk(
   "coin/editCoin",
-  async (
-    {
-      title,
-      faceValue,
-      year,
-      price,
-      country,
-      metal,
-      shortDesc,
-      longDesc,
-      quality,
-      weight,
-      imgObverse,
-      imgReverse,
-      category,
-      _id,
-    },
-    { rejectWithValue }
-  ) => {
+  async ({ _id, ...values }, { rejectWithValue }) => {
     let authToken = localStorage.getItem("userToken");
     try {
       // configure header's Content-Type as JSON
@@ -105,18 +58,7 @@ export const editCoin = createAsyncThunk(
       const { data } = await axios.put(
         `${backendURL}/api/coins/${_id}/edit`,
         {
-          title,
-          faceValue,
-          year,
-          price,
-          country,
-          metal,
-          shortDesc,
-          longDesc,
-          quality,
-          weight,
-          imgObverse,
-          imgReverse,
+          ...values,
         },
         config
       );
@@ -218,36 +160,12 @@ export const getAllCoins = createAsyncThunk(
 
 export const getUserCoins = createAsyncThunk(
   "coin/getUserCoins",
-  async (
-    {
-      user_id,
-      title,
-      country,
-      metal,
-      quality,
-      priceFrom,
-      priceTo,
-      yearFrom,
-      yearTo,
-    },
-    { rejectWithValue }
-  ) => {
-    console.log(
-      user_id,
-      title,
-      country,
-      metal,
-      quality,
-      priceFrom,
-      priceTo,
-      yearFrom,
-      yearTo
-    );
+  async ({ user_id }, { rejectWithValue }) => {
     try {
       const { data } = await axios.get(
-        `${backendURL}/api/users/${user_id}/coins?title=${title}&year=${yearFrom},${yearTo}&price=${priceFrom},${priceTo}&country=${country}&metal=${metal}&quality=${quality}`
+        `${backendURL}/api/users/${user_id}/coins`
       );
-      return data;
+      return data.data;
     } catch (error) {
       if (error.response && error.response.data.message) {
         return rejectWithValue(

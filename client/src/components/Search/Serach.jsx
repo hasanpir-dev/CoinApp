@@ -35,8 +35,7 @@ const Search = () => {
 
   useEffect(() => {
     location.pathname === "/coins" && dispatch(getAllCoins({ ...filterData }));
-    location.pathname === "/my_coins/" &&
-      dispatch(getUserCoins({ user_id, ...filterData }));
+    location.pathname === "/my_coins" && dispatch(getUserCoins({ user_id }));
     id && dispatch(getCoins({ id, ...filterData }));
   }, [dispatch, filterData]);
 

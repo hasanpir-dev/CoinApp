@@ -4,9 +4,18 @@ import { GrClose } from "react-icons/gr";
 import { changeEditModal } from "../../features/editModalSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 import { addCoin, editCoin } from "../../features/coin/coinActions.js";
+import { useFormik } from "formik";
+import { coinSchema } from "../../schemas/index.js";
+import "../../components/Auth/auth.css";
 
 const CoinAdd = () => {
-  const [data, setData] = useState({
+  const editMyCoin = useSelector((state) => state.coin.editMyCoin);
+  const _id = useSelector((state) => state.coin.coin._id);
+  const isEdit = useSelector((state) => state.coin.editCoin);
+  const categories = useSelector((state) => state.category.categories);
+  const { editModal } = useSelector((state) => state.modal);
+
+  const [initialValues, setInitialValues] = useState({
     title: "",
     faceValue: "",
     year: "",
@@ -21,83 +30,62 @@ const CoinAdd = () => {
     imgReverse: "",
     category: "",
   });
-
-  const {
-    title,
-    faceValue,
-    year,
-    price,
-    country,
-    metal,
-    shortDesc,
-    longDesc,
-    quality,
-    weight,
-    imgObverse,
-    imgReverse,
-    category,
-  } = data;
-
-  const coin = useSelector((state) => state.coin.coin);
-  const _id = useSelector((state) => state.coin.coin._id);
-
-  const isEdit = useSelector((state) => state.coin.editCoin);
-  const categories = useSelector((state) => state.category.categories);
-
   useEffect(() => {
-    isEdit && setData(coin);
-  }, [coin]);
+    isEdit && setInitialValues(editMyCoin);
+  }, [editMyCoin, editModal]);
 
   const dispatch = useDispatch();
-  const onChangeFn = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value });
-  };
+
   const closeModal = () => {
     dispatch(changeEditModal(false));
   };
 
-  const createCoin = (e) => {
-    e.preventDefault();
+  const onSubmit = (values) => {
     if (isEdit) {
-      dispatch(
-        editCoin({
-          title,
-          faceValue,
-          year,
-          price,
-          country,
-          metal,
-          shortDesc,
-          longDesc,
-          quality,
-          weight,
-          imgObverse,
-          imgReverse,
-          category,
-          _id,
-        })
-      );
+      {
+        dispatch(
+          editCoin({
+            ...values,
+          })
+        );
+      }
     } else {
       dispatch(
         addCoin({
-          title,
-          faceValue,
-          year,
-          price,
-          country,
-          metal,
-          shortDesc,
-          longDesc,
-          quality,
-          weight,
-          imgObverse,
-          imgReverse,
-          category,
+          ...values,
         })
       );
     }
     dispatch(changeEditModal(false));
   };
+
+  const formik = useFormik({
+    initialValues: {
+      title: "",
+      faceValue: "",
+      year: "",
+      price: "",
+      country: "",
+      metal: "",
+      shortDesc: "",
+      longDesc: "",
+      quality: "",
+      weight: "",
+      imgObverse: "",
+      imgReverse: "",
+      category: "",
+    },
+    validationSchema: coinSchema,
+    onSubmit,
+  });
+
+  const { values, errors, handleChange, handleSubmit } = formik;
+
+  useEffect(() => {
+    if (editModal) {
+      formik.setValues(initialValues);
+    }
+  }, [editModal, initialValues]);
 
   return (
     <div className="w-full h-screen bg-opacity-50 bg-black fixed top-0 left-0 right-0 bottom-0 z-50 flex justify-center items-center">
@@ -109,120 +97,158 @@ const CoinAdd = () => {
           <h3 className="font-bold text-2xl">ADD Coin</h3>
           <GrClose size={20} />
         </div>
-        <div className="my-4 flex sm:flex-col lg:flex-row h-96">
+        <form
+          onSubmit={handleSubmit}
+          className="my-4 flex sm:flex-col lg:flex-row
+        h-96"
+        >
           <div className="flex flex-col w-full mr-8 justify-between ">
             <input
-              onChange={onChangeFn}
               name="title"
-              value={data.title}
+              value={values.title}
               type="text"
               placeholder="Coin Name"
+              onChange={handleChange}
               className="input-style"
             />
+            {errors.title && (
+              <span className="error-message">{errors.title}</span>
+            )}
             <input
-              onChange={onChangeFn}
+              onChange={handleChange}
               name="faceValue"
-              value={data.faceValue}
+              value={values.faceValue}
               type="text"
               placeholder="Face value"
               className="input-style"
             />
+            {errors.faceValue && (
+              <span className="error-message">{errors.faceValue}</span>
+            )}
             <input
-              onChange={onChangeFn}
+              onChange={handleChange}
               name="year"
-              value={data.year}
+              value={values.year}
               type="text"
               placeholder="Year of issue"
               className="input-style"
             />
+            {errors.year && (
+              <span className="error-message">{errors.year}</span>
+            )}
             <input
-              onChange={onChangeFn}
+              onChange={handleChange}
               name="price"
-              value={data.price}
+              value={values.price}
               type="text"
               placeholder="Price"
               className="input-style"
             />
+            {errors.price && (
+              <span className="error-message">{errors.price}</span>
+            )}
             <input
-              onChange={onChangeFn}
+              onChange={handleChange}
               name="country"
-              value={data.country}
+              value={values.country}
               type="text"
               placeholder="Country"
               className="input-style"
             />
+            {errors.country && (
+              <span className="error-message">{errors.country}</span>
+            )}
             <input
-              onChange={onChangeFn}
+              onChange={handleChange}
               name="metal"
-              value={data.metal}
+              value={values.metal}
               type="text"
               placeholder="Metal"
               className="input-style"
             />
+            {errors.metal && (
+              <span className="error-message">{errors.metal}</span>
+            )}
           </div>
           <div className="flex flex-col justify-between w-full mr-8 ">
             <textarea
-              onChange={onChangeFn}
+              onChange={handleChange}
               name="shortDesc"
               rows={2}
-              value={data.shortDesc}
+              value={values.shortDesc}
               placeholder="Short description"
               className="input-style"
             />
+            {errors.shortDesc && (
+              <span className="error-message">{errors.shortDesc}</span>
+            )}
             <textarea
-              onChange={onChangeFn}
+              onChange={handleChange}
               name="longDesc"
-              value={data.longDesc}
+              value={values.longDesc}
               rows={4}
               placeholder="Long description"
               className="input-style"
             />
+            {errors.longDesc && (
+              <span className="error-message">{errors.longDesc}</span>
+            )}
             <input
-              onChange={onChangeFn}
+              onChange={handleChange}
               name="quality"
-              value={data.quality}
+              value={values.quality}
               type="text"
               placeholder="Quality of the coin"
               className="input-style "
             />
+            {errors.quality && (
+              <span className="error-message">{errors.quality}</span>
+            )}
             <input
-              onChange={onChangeFn}
+              onChange={handleChange}
               name="weight"
-              value={data.weight}
+              value={values.weight}
               type="text"
               placeholder="Weight"
               className="input-style"
             />
+            {errors.weight && (
+              <span className="error-message">{errors.weight}</span>
+            )}
           </div>
-
           <div className="flex flex-col justify-between w-full">
             <div className="flex flex-col w-full">
               <input
-                onChange={onChangeFn}
+                onChange={handleChange}
                 name="imgObverse"
-                value={data.imgObverse}
+                value={values.imgObverse}
                 type="text"
                 placeholder="Link to obverse image"
                 className="input-style mb-6"
               />
+              {errors.imgObverse && (
+                <span className="error-message">{errors.imgObverse}</span>
+              )}
               <input
-                onChange={onChangeFn}
+                onChange={handleChange}
                 name="imgReverse"
-                value={data.imgReverse}
+                value={values.imgReverse}
                 type="text"
                 placeholder="Link to reverse image"
                 className="input-style mb-6"
               />
-
+              {errors.imgReverse && (
+                <span className="error-message">{errors.imgReverse}</span>
+              )}
               <select
                 name="category"
-                value={data.category}
+                value={values.category}
                 className="input-style"
-                onChange={onChangeFn}
+                onChange={handleChange}
               >
-                {data.category._id ? (
-                  <option value={data.category._id}>
-                    {data.category.title}
+                {values.category._id ? (
+                  <option value={values.category._id}>
+                    {values.category.title}
                   </option>
                 ) : (
                   <option value="">Select Category</option>
@@ -235,14 +261,17 @@ const CoinAdd = () => {
                   );
                 })}
               </select>
+              {errors.category && (
+                <span className="error-message">{errors.category}</span>
+              )}
             </div>
             <div className="flex justify-around ">
-              <div
-                onClick={createCoin}
+              <button
+                type="submit"
                 className="border rounded-md border-violet-600 cursor-pointer text-sm py-4 px-12 hover:bg-violet-800 p-2 text-sm text-center bg-violet-600 text-white"
               >
                 Save
-              </div>
+              </button>
               <div
                 onClick={closeModal}
                 className="border rounded-md border-gray-500 cursor-pointer text-sm py-4 px-12 hover:bg-gray-700 p-2  text-sm text-center bg-gray-500 text-white"
@@ -251,7 +280,7 @@ const CoinAdd = () => {
               </div>
             </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

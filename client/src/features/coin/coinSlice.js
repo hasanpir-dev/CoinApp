@@ -14,6 +14,8 @@ const initialState = {
   coins: [],
   allCoins: [],
   myCoins: [],
+  myDeletedCoins: [],
+  editMyCoin: null,
   filterCoins: {
     title: "",
     country: "",
@@ -51,6 +53,16 @@ const coinSlice = createSlice({
     },
     isEditCoin: (state, action) => {
       state.editCoin = action.payload;
+    },
+    getEditCoin: (state, action) => {
+      state.editMyCoin = state.myCoins.find(
+        (coin) => coin._id === action.payload
+      );
+    },
+    deleteCoinState: (state, action) => {
+      state.myCoins = state.myCoins.filter(
+        (coin) => coin._id !== action.payload
+      );
     },
   },
   extraReducers: (builder) => {
@@ -96,7 +108,7 @@ const coinSlice = createSlice({
     });
     builder.addCase(getUserCoins.fulfilled, (state, { payload }) => {
       state.loading = false;
-      state.myCoins = payload.data;
+      state.myCoins = payload;
     });
     builder.addCase(getUserCoins.rejected, (state, { payload }) => {
       state.loading = false;
@@ -117,6 +129,7 @@ const coinSlice = createSlice({
   },
 });
 
-export const { filterCoin, isEditCoin } = coinSlice.actions;
+export const { filterCoin, deleteCoinState, isEditCoin, getEditCoin } =
+  coinSlice.actions;
 
 export default coinSlice.reducer;

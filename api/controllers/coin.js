@@ -144,8 +144,23 @@ const editCoin = errorWrapper(async (req, res, next) => {
 
   let coin = await Coin.findById(coin_id);
 
-  Object.keys(updatedFields).forEach((key) => {
-    coin[key] = updatedFields[key];
+  if (!coin.category.equals(updatedFields.category)) {
+    const oldCategory = await Category.findById(coin.category);
+    const newCategory = await Category.findById(updatedFields.category);
+
+    if (oldCategory.coins.includes(coin_id)) {
+      oldCategory.coins.pull(coin_id);
+      oldCategory.coinsCount -= 1;
+      await oldCategory.save();
+    }
+
+    newCategory.coins.push(coin_id);
+    newCategory.coinsCount += 1;
+    await newCategory.save();
+  }
+
+  coin = await Coin.findByIdAndUpdate(coin_id, {
+    ...updatedFields,
   });
 
   coin = await coin.save();
