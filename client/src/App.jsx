@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import CategoryModal from "./components/Modal/Category.jsx";
 import Login from "./components/Auth/Login.jsx";
 import Register from "./components/Auth/Register.jsx";
-import CoinListPage from "./pages/Coinlist/CoinListPage.jsx";
+import CoinListPage from "./pages/CoinList/CoinListPage.jsx";
 import CoinPage from "./pages/Coin/CoinPage.jsx";
 import MyCoins from "./pages/MyPage/MyCoins.jsx";
 import NotFoundPage from "./pages/404.jsx";
