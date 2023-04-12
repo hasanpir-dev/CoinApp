@@ -35,7 +35,7 @@ const addCategory = errorWrapper(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    message: category,
+    data: category,
   });
 });
 const editCategory = errorWrapper(async (req, res, next) => {
@@ -48,11 +48,12 @@ const editCategory = errorWrapper(async (req, res, next) => {
     Category[key] = updatedFields[key];
   });
 
-  category = await category.save();
+  await category.save();
 
+  const updatedCategory = await Category.findById(id);
   res.status(200).json({
     success: true,
-    data: category,
+    data: updatedCategory,
   });
 });
 

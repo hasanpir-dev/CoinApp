@@ -13,9 +13,6 @@ const categorySlice = createSlice({
   name: "category",
   initialState,
   reducers: {
-    addCategoryState: (state, action) => {
-      state.categories.push(action.payload);
-    },
     categorySearch: (state, action) => {
       state.title = action.payload;
     },
@@ -27,7 +24,7 @@ const categorySlice = createSlice({
     });
     builder.addCase(addCategory.fulfilled, (state, { payload }) => {
       state.loading = false;
-      state.category = payload;
+      state.categories = [...state.categories, payload.data];
     });
     builder.addCase(addCategory.rejected, (state, { payload }) => {
       state.loading = false;
@@ -48,6 +45,6 @@ const categorySlice = createSlice({
   },
 });
 
-export const { addCategoryState, categorySearch } = categorySlice.actions;
+export const { categorySearch } = categorySlice.actions;
 
 export default categorySlice.reducer;

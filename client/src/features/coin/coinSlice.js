@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   addCoin,
+  editCoin,
   getAllCoins,
   getCoins,
   getSingleCoin,
@@ -72,9 +73,28 @@ const coinSlice = createSlice({
     });
     builder.addCase(addCoin.fulfilled, (state, { payload }) => {
       state.loading = false;
-      state.coins = payload;
+      state.coins = [...state.coins, payload.data];
+      state.myCoins = [...state.myCoins, payload.data];
+      state.allCoins = [...state.allCoins, payload.data];
     });
     builder.addCase(addCoin.rejected, (state, { payload }) => {
+      state.loading = false;
+      state.error = payload;
+    });
+    builder.addCase(editCoin.pending, (state) => {
+      state.isLoading = true;
+      state.error = null;
+    });
+    builder.addCase(editCoin.fulfilled, (state, { payload }) => {
+      const editedCoins = state.myCoins.filter(
+        (coin) => coin._id !== payload.data._id
+      );
+      state.loading = false;
+      state.coins = [...state.coins, payload.data];
+      state.myCoins = [...editedCoins, payload.data];
+      state.allCoins = [...state.allCoins, payload.data];
+    });
+    builder.addCase(editCoin.rejected, (state, { payload }) => {
       state.loading = false;
       state.error = payload;
     });

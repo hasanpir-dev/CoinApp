@@ -9,7 +9,7 @@ function NotFoundPage() {
       <p className="text-2xl font-medium mt-6 mb-8">Page not found</p>
       <button
         onClick={() => navigate(-1)}
-        className="bg-violet-700 hover:bg-violet-500 text-white py-3 px-6 rounded-lg"
+        className="bg-violet-700 hover:bg-violet-500 transition-all text-white py-3 px-6 rounded-lg"
       >
         Go Back
       </button>

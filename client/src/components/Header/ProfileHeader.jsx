@@ -19,7 +19,7 @@ const ProfileHeader = () => {
           dispatch(isEditCoin(false));
         }}
         className="w-36 border p-2 rounded-md text-center text-white cursor-pointer
-        hover:bg-violet-800"
+        hover:bg-violet-800 transition-all"
       >
         Add Coin
       </div>
@@ -28,7 +28,7 @@ const ProfileHeader = () => {
           dispatch(changeCategoryModal(true));
         }}
         className="w-36 border p-2 rounded-md text-center text-white cursor-pointer
-        hover:bg-violet-800"
+        hover:bg-violet-800 transition-all"
       >
         Add Category
       </div>
@@ -37,7 +37,7 @@ const ProfileHeader = () => {
           dispatch(logout());
         }}
         size={25}
-        className="text-white cursor-pointer hover:text-violet-400"
+        className="text-white cursor-pointer hover:text-violet-400 transition-all"
       />
     </div>
   );

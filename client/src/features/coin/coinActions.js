@@ -15,7 +15,7 @@ export const addCoin = createAsyncThunk(
           Authorization: "Bearer: " + authToken,
         },
       };
-      const data = await axios.post(
+      const { data } = await axios.post(
         `${backendURL}/api/category/${category}/coins`,
         {
           ...values,
@@ -25,6 +25,7 @@ export const addCoin = createAsyncThunk(
       toast.success("You added new coin", {
         position: "top-left",
       });
+      return data;
     } catch (error) {
       if (error.response && error.response.data.message) {
         return rejectWithValue(
@@ -49,7 +50,6 @@ export const editCoin = createAsyncThunk(
   async ({ _id, ...values }, { rejectWithValue }) => {
     let authToken = localStorage.getItem("userToken");
     try {
-      // configure header's Content-Type as JSON
       const config = {
         headers: {
           "Content-Type": "application/json",
@@ -63,10 +63,10 @@ export const editCoin = createAsyncThunk(
         },
         config
       );
-
       toast.success("You have edited coin.", {
         position: "top-left",
       });
+      console.log(data);
       return data;
     } catch (error) {
       if (error.response && error.response.data.message) {

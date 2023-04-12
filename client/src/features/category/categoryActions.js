@@ -23,6 +23,7 @@ export const addCategory = createAsyncThunk(
       toast.success("You have created new category", {
         position: "top-left",
       });
+      return data;
     } catch (error) {
       if (error.response && error.response.data.message) {
         return rejectWithValue(

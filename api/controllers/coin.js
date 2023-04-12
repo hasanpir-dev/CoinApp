@@ -159,9 +159,13 @@ const editCoin = errorWrapper(async (req, res, next) => {
     await newCategory.save();
   }
 
-  coin = await Coin.findByIdAndUpdate(coin_id, {
-    ...updatedFields,
-  });
+  coin = await Coin.findByIdAndUpdate(
+    coin_id,
+    {
+      ...updatedFields,
+    },
+    { new: true }
+  );
 
   coin = await coin.save();
 
@@ -193,7 +197,7 @@ const deleteCoin = errorWrapper(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    message: "Coin Deleted Successfully",
+    message: `Coin with ID ${coin_id} deleted successfully`,
   });
 });
 

@@ -70,7 +70,7 @@ const Search = () => {
                 onClick={() => {
                   navigate("/");
                 }}
-                className="border rounded-md border-violet-600 w-36 cursor-pointer text-sm py-4 px-9 hover:bg-violet-800 text-center bg-violet-600 text-white"
+                className="border rounded-md border-violet-600 w-36 transition-all cursor-pointer text-sm py-4 px-9 hover:bg-violet-800 text-center bg-violet-600 text-white"
               >
                 Categories
               </button>
@@ -79,7 +79,7 @@ const Search = () => {
                 onClick={() => {
                   navigate("/coins");
                 }}
-                className="border rounded-md border-violet-600 w-36 cursor-pointer text-sm py-4 px-9 hover:bg-violet-800 text-center bg-violet-600 text-white"
+                className="border rounded-md border-violet-600 w-36 transition-all cursor-pointer text-sm py-4 px-9 hover:bg-violet-800 text-center bg-violet-600 text-white"
               >
                 All Coins
               </button>
@@ -89,7 +89,7 @@ const Search = () => {
                 onClick={() => {
                   navigate("/my_coins");
                 }}
-                className="border rounded-md border-violet-600 w-36 cursor-pointer text-sm py-4 hover:bg-violet-800 text-center bg-violet-600 text-white"
+                className="border rounded-md border-violet-600 w-36 transition-all cursor-pointer text-sm py-4 hover:bg-violet-800 text-center bg-violet-600 text-white"
               >
                 {userName} Coins
               </button>

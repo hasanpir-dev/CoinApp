@@ -12,7 +12,7 @@ const Category = ({ title, image, _id }) => {
   //<div className="mr-36 mb-10">
   return (
     <>
-      <div className="w-4/12">
+      <div className="w-4/12 mb-28">
         <h2 className="text-3xl text-gray-700  mb-5 font-medium break-words">
           {title}
         </h2>

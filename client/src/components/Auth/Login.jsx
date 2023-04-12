@@ -87,7 +87,7 @@ const Login = () => {
             </span>
           </div>
           <button
-            className="cursor-pointer w-full text-center bg-violet-600 hover:bg-violet-800 text-white py-2 px-4 rounded"
+            className="cursor-pointer w-full text-center bg-violet-600 transition-all hover:bg-violet-800 text-white py-2 px-4 rounded"
             disabled={loading}
           >
             {loading ? <Spinner /> : "Sign In"}

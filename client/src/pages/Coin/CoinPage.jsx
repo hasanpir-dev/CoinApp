@@ -85,7 +85,7 @@ const CoinPage = () => {
       <div className="flex flex-col justify-center items-center py-12">
         <h2 className="text-2xl font-bold mb-4">{error.message}</h2>
         <button
-          className="bg-violet-500 hover:bg-violet-700 text-white py-3 px-6 rounded-lg"
+          className="bg-violet-500 hover:bg-violet-700 transition-all text-white py-3 px-6 rounded-lg"
           onClick={() => navigate(-1)}
         >
           Go back
@@ -168,7 +168,7 @@ const CoinPage = () => {
                     <IoMdHeartDislike
                       onClick={undo_like}
                       size={50}
-                      className="cursor-pointer"
+                      className="transition-all cursor-pointer hover:text-violet-700"
                     />
                   ) : (
                     <IoMdHeart
@@ -184,7 +184,7 @@ const CoinPage = () => {
             </div>
             <span
               onClick={() => navigate(-1)}
-              className="text-xs underline hover:no-underline mt-auto cursor-pointer"
+              className="text-xs underline transition-all hover:no-underline mt-auto cursor-pointer"
             >
               Back to the list
             </span>

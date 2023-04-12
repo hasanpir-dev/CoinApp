@@ -16,6 +16,7 @@ const MyCoinPage = () => {
 
   const filteredItems = filterItems(myCoins, filtercoins);
 
+  console.log(myCoins);
   return (
     <>
       <div className="p-12 w-[1280px] m-auto">

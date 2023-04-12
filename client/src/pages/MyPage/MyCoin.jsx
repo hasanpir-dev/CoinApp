@@ -42,7 +42,7 @@ const MyCoin = ({ title, shortDesc, imgObverse, _id, likeCount }) => {
     }
   };
 
-  const editCoin = (e) => {
+  const editCoin = () => {
     dispatch(getEditCoin(_id));
     dispatch(changeEditModal(true));
     dispatch(isEditCoin(true));
@@ -73,14 +73,14 @@ const MyCoin = ({ title, shortDesc, imgObverse, _id, likeCount }) => {
 
       <div className="flex mb-6">
         <div
-          onClick={(e) => editCoin(e)}
-          className="cursor-pointer flex items-center justify-center h-12 w-32 text-center bg-gray-400 hover:bg-gray-500 text-white rounded mr-7"
+          onClick={editCoin}
+          className="cursor-pointer flex items-center transition-all justify-center h-12 w-32 text-center bg-gray-400 hover:bg-gray-500 text-white rounded mr-7"
         >
           Edit
         </div>
         <div
           onClick={deleteCoin}
-          className="cursor-pointer flex items-center justify-center h-12 w-32 text-center bg-gray-400 hover:bg-gray-600 text-white rounded"
+          className="cursor-pointer flex items-center transition-all justify-center h-12 w-32 text-center bg-gray-400 hover:bg-gray-600 text-white rounded"
         >
           Delete
         </div>

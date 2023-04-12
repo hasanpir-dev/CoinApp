@@ -268,13 +268,13 @@ const CoinAdd = () => {
             <div className="flex justify-around ">
               <button
                 type="submit"
-                className="border rounded-md border-violet-600 cursor-pointer text-sm py-4 px-12 hover:bg-violet-800 p-2 text-sm text-center bg-violet-600 text-white"
+                className="border rounded-md border-violet-600 cursor-pointer transition-all text-sm py-4 px-12 hover:bg-violet-800 p-2 text-sm text-center bg-violet-600 text-white"
               >
                 Save
               </button>
               <div
                 onClick={closeModal}
-                className="border rounded-md border-gray-500 cursor-pointer text-sm py-4 px-12 hover:bg-gray-700 p-2  text-sm text-center bg-gray-500 text-white"
+                className="border rounded-md border-gray-500 cursor-pointer text-sm py-4 px-12 transition-all hover:bg-gray-700 p-2  text-sm text-center bg-gray-500 text-white"
               >
                 Cancel
               </div>

@@ -119,7 +119,7 @@ const Register = ({}) => {
         </div>
         <button
           type="submit"
-          className="w-full cursor-pointer bg-violet-600 hover:bg-violet-800 p-2 text-center text-white rounded-md"
+          className="w-full cursor-pointer bg-violet-600 hover:bg-violet-800 transition-all p-2 text-center text-white rounded-md"
           disabled={loading}
         >
           {loading ? <Spinner /> : "Register"}

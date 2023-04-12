@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import "./modal.css";
 import { GrClose } from "react-icons/gr";
 import { changeCategoryModal } from "../../features/editModalSlice.js";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addCategory } from "../../features/category/categoryActions.js";
-import { addCategoryState } from "../../features/category/categorySlice.js";
 
 const CategoryModal = () => {
   const [data, setData] = useState({
@@ -20,7 +19,7 @@ const CategoryModal = () => {
 
   const onSubmitFn = (e) => {
     e.preventDefault();
-    dispatch(addCategoryState({ ...data, _id: Math.random() }));
+    dispatch(changeCategoryModal(false));
     dispatch(addCategory(data));
     setData({ title: "", description: "", image: "" });
   };
@@ -68,7 +67,7 @@ const CategoryModal = () => {
           <div className="flex justify-between ">
             <div
               onClick={onSubmitFn}
-              className="border rounded-md border-violet-600 cursor-pointer text-sm py-4 px-12 hover:bg-violet-800 p-2 text-sm text-center bg-violet-600 text-white"
+              className="border rounded-md border-violet-600 cursor-pointer text-sm py-4 px-12 hover:bg-violet-800 transition-all p-2 text-sm text-center bg-violet-600 text-white"
             >
               Save
             </div>
@@ -76,7 +75,7 @@ const CategoryModal = () => {
               onClick={() => {
                 dispatch(changeCategoryModal(false));
               }}
-              className="border rounded-md border-gray-500 cursor-pointer text-sm py-4 px-12 hover:bg-gray-700 p-2  text-sm text-center bg-gray-500 text-white"
+              className="border rounded-md border-gray-500 cursor-pointer text-sm py-4 px-12 hover:bg-gray-700 p-2 transition-all text-center bg-gray-500 text-white"
             >
               Cancel
             </div>

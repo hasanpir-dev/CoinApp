@@ -19,7 +19,6 @@ function App() {
   const { editModal, categoryModal } = useSelector((state) => state.modal);
   const { signInModal, signUpModal } = useSelector((state) => state.auth);
 
-  console.log(getApiUrl());
   return (
     <>
       <Header />
