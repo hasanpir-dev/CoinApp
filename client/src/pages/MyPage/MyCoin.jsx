@@ -9,11 +9,12 @@ import {
   getEditCoin,
   isEditCoin,
 } from "../../features/coin/coinSlice.js";
+import getApiUrl from "../../utilities/getApiUrl.js";
 
 const MyCoin = ({ title, shortDesc, imgObverse, _id, likeCount }) => {
   const navigate = useNavigate();
 
-  const API_URI = `http://localhost:4000/api/coins/`;
+  const API_URI = getApiUrl() + "/api/coins/";
 
   const dispatch = useDispatch();
 

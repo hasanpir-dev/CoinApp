@@ -1,7 +1,8 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-const backendURL = "http://localhost:4000";
+import getApiUrl from "../../utilities/getApiUrl.js";
+const backendURL = getApiUrl();
 
 export const registerUser = createAsyncThunk(
   "auth/register",
@@ -17,9 +18,9 @@ export const registerUser = createAsyncThunk(
         { name, email, password },
         config
       );
-        localStorage.setItem("name", data.data.name);
-        localStorage.setItem("user_id", data.data.user_id);
-        localStorage.setItem("userToken", data.token);
+      localStorage.setItem("name", data.data.name);
+      localStorage.setItem("user_id", data.data.user_id);
+      localStorage.setItem("userToken", data.token);
       toast.success("You have registered successfully.", {
         position: "top-left",
       });

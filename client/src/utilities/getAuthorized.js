@@ -1,7 +1,8 @@
 import axios from "axios";
+import getApiUrl from "./getApiUrl.js";
 
 const getAuthorized = async () => {
-  const backendURL = "http://localhost:4000/api/auth/user";
+  const backendURL = getApiUrl() + "/api/auth/user";
 
   let authToken = localStorage.getItem("userToken");
   if (!authToken) {

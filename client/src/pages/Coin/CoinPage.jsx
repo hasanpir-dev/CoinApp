@@ -7,12 +7,13 @@ import { IoMdHeart, IoMdHeartDislike } from "react-icons/io";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import isLiked from "../../utilities/isLiked.js";
+import getApiUrl from "../../utilities/getApiUrl.js";
 
 const CoinPage = () => {
   const params = useParams();
   const authorized = useSelector((state) => state.auth.authorized);
   const coin_id = params.coin_id;
-  const API_URI = `http://localhost:4000/api/coins/${coin_id}`;
+  const API_URI = getApiUrl() + `/api/coins/${coin_id}`;
   const user_id = useSelector((state) => state.auth.user_id);
   const navigate = useNavigate();
   const [coin, setCoin] = useState(null);

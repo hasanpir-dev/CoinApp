@@ -1,7 +1,8 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-const backendURL = "http://localhost:4000";
+import getApiUrl from "../../utilities/getApiUrl.js";
+const backendURL = getApiUrl();
 
 export const addCategory = createAsyncThunk(
   "category/add",
