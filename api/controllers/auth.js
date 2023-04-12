@@ -2,7 +2,7 @@ const User = require("../models/User");
 const errorWrapper = require("../helpers/error/errorWrapper");
 const CustomError = require("../helpers/error/customError");
 const bcrypt = require("bcryptjs");
-// const sendMail = require("../helpers/libraries/sendEmail");
+const sendMail = require("../helpers/libraries/sendEmail");
 
 const register = errorWrapper(async (req, res, next) => {
   const { name, email, password, role } = req.body;
@@ -13,6 +13,23 @@ const register = errorWrapper(async (req, res, next) => {
     password,
     role,
   });
+
+  // const emailTemplate = `
+  //       <h3>Hi from Hasan Pirmuradov</h3>
+  //       <p>This <a href = 'https://github.com/hasanpir-dev' target = '_blank'>GitHub</a> Link</p>
+  //
+  //   `;
+  //
+  // try {
+  //   await sendMail({
+  //     from: process.env.SMTP_EMAIL,
+  //     to: email,
+  //     subject: "Hi from Hasan Pirmuradov",
+  //     html: emailTemplate,
+  //   });
+  // } catch (err) {
+  //   return next(new CustomError("Email Could Not Be Sent", 500));
+  // }
 
   sendTokenToClient(user, res, 200);
 });

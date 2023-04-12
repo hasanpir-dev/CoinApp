@@ -14,4 +14,5 @@ const sendEmail = async (mailOptions) => {
 
   console.log("Message sent: %s", info.messageId);
 };
+
 module.exports = sendEmail;
