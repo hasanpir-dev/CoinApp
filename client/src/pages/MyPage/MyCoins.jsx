@@ -4,7 +4,6 @@ import Spinner from "../../components/Spinner/Spinner.jsx";
 import Serach from "../../components/Search/Serach.jsx";
 import MyCoin from "./MyCoin.jsx";
 import filterItems from "../../utilities/filterİtems.js";
-import { useEffect, useState } from "react";
 
 const MyCoinPage = () => {
   const params = useParams();
@@ -16,12 +15,11 @@ const MyCoinPage = () => {
 
   const filteredItems = filterItems(myCoins, filtercoins);
 
-  console.log(myCoins);
   return (
     <>
-      <div className="p-12 w-[1280px] m-auto">
+      <div className="p-12 container lg:mx-auto">
         <Serach />
-        <div className="flex  flex-col py-12 ">
+        <div className="flex flex-col py-12 ">
           {loading ? (
             <Spinner />
           ) : (

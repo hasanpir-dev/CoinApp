@@ -81,6 +81,7 @@ const CoinPage = () => {
   };
 
   if (error) {
+    //
     return (
       <div className="flex flex-col justify-center items-center py-12">
         <h2 className="text-2xl font-bold mb-4">{error.message}</h2>
@@ -103,21 +104,22 @@ const CoinPage = () => {
   return (
     <>
       {coin ? (
-        <div className="flex justify-center py-12 w-[1280px] m-auto">
-          <div className="px-7">
+        <div className="flex justify-center py-12 sm:flex-col md:flex-row container mx-auto">
+          <div className="flex px-7 sm:flex-row md:flex-col">
             <div
-              className="mb-7"
+              className="flex mb-7"
               style={{
-                width: "300px",
-                height: "300px",
+                width: "18.75rem",
+                height: "18.75rem",
               }}
             >
               <img src={coin.imgObverse} alt="coin" />
             </div>
             <div
+              className="flex"
               style={{
-                width: "300px",
-                height: "300px",
+                width: "18.75rem",
+                height: "18.75rem",
               }}
             >
               <img src={coin.imgReverse} alt="" />
@@ -125,10 +127,10 @@ const CoinPage = () => {
           </div>
           <div className="bg-gray-200 px-10 py-5 flex flex-col items-start">
             <h2 className="font-bold text-2xl mb-4">{coin.title}</h2>
-            <h5 className="text-xs w-96 mb-3">{coin.shortDesc}</h5>
-            <p className="text-xs mb-10 w-96">{coin.longDesc}</p>
+            <h5 className="text-xs mb-3 md:w-96">{coin.shortDesc}</h5>
+            <p className="text-xs mb-10 md:w-96">{coin.longDesc}</p>
             <div className="mb-4">
-              <table className="text-xs w-96">
+              <table className="text-xs md:w-96">
                 <tbody>
                   <tr>
                     <td>Issuing Country</td>

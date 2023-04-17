@@ -49,13 +49,15 @@ const Search = () => {
     <>
       <div className="">
         <div>
-          <h1 className="text-5xl text-gray-700 font-bold">Coin Social App</h1>
+          <h1 className="text-4xl md:text-5xl text-gray-700 font-bold">
+            Coin Social App
+          </h1>
         </div>
         <div className="flex flex-col mb-2.5">
           <label className="text-sm font-medium my-1.5">Search</label>
           <div
             className={`flex justify-between ${
-              authorized ? "w-8/12" : "w-6/12"
+              authorized ? "lg:w-8/12" : "lg:w-6/12"
             }`}
           >
             <input

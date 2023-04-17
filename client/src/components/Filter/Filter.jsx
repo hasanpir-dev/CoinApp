@@ -27,7 +27,7 @@ const Filter = () => {
   return (
     <div className="flex items-center">
       <div className="bg-white w-3/4 py-6 rounded-md">
-        <div className="my-4 flex sm:flex-col lg:flex-row h-48">
+        <div className="my-4 flex flex-col lg:flex-row h-48">
           <div className="flex flex-col w-96 mr-16">
             <input
               onChange={onChangeFn}

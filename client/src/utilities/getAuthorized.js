@@ -20,11 +20,11 @@ const getAuthorized = async () => {
 
     return data;
   } catch (e) {
+    localStorage.removeItem("userToken");
+    localStorage.removeItem("user_id");
+    localStorage.removeItem("name");
     return false;
   }
 };
 
 export default getAuthorized;
-
-try {
-} catch (e) {}

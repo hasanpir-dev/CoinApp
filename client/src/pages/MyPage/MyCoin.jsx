@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -27,7 +26,7 @@ const MyCoin = ({ title, shortDesc, imgObverse, _id, likeCount }) => {
       },
     };
     try {
-      const res = await axios.delete(`${API_URI}${_id}/delete`, config);
+      await axios.delete(`${API_URI}${_id}/delete`, config);
       toast.success("You delete coin successfully.", {
         position: "top-left",
       });
@@ -71,7 +70,7 @@ const MyCoin = ({ title, shortDesc, imgObverse, _id, likeCount }) => {
         </div>
       </div>
 
-      <div className="flex mb-6">
+      <div className="flex flex-col md:flex-row mb-6">
         <div
           onClick={editCoin}
           className="cursor-pointer flex items-center transition-all justify-center h-12 w-32 text-center bg-gray-400 hover:bg-gray-500 text-white rounded mr-7"
@@ -80,7 +79,7 @@ const MyCoin = ({ title, shortDesc, imgObverse, _id, likeCount }) => {
         </div>
         <div
           onClick={deleteCoin}
-          className="cursor-pointer flex items-center transition-all justify-center h-12 w-32 text-center bg-gray-400 hover:bg-gray-600 text-white rounded"
+          className="cursor-pointer flex items-center transition-all justify-center h-12  w-32 text-center bg-gray-400 hover:bg-gray-600 text-white rounded"
         >
           Delete
         </div>

@@ -4,7 +4,7 @@ import Serach from "../../components/Search/Serach.jsx";
 
 const Home = () => {
   return (
-    <div className="p-12 w-[1280px] m-auto">
+    <div className="p-12 container mx-auto">
       <Serach />
       <CategoryList />
     </div>

@@ -1,22 +1,25 @@
-import React, { useEffect } from "react";
 import Category from "./Category.jsx";
-import { useDispatch, useSelector } from "react-redux";
-import { getCategories } from "../../features/category/categoryActions.js";
+import { useSelector } from "react-redux";
+
 import Spinner from "../Spinner/Spinner.jsx";
 
 const CategoryList = () => {
   const categories = useSelector((state) => state.category.categories);
 
+  //flex items-center py-12 flex-wrap
+
   return (
-    <div className="flex items-center py-12 flex-wrap">
+    <>
       {categories.length !== 0 ? (
-        categories?.map((category) => {
-          return <Category key={category._id} {...category} />;
-        })
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 place-content-center py-12">
+          {categories?.map((category) => {
+            return <Category key={category._id} {...category} />;
+          })}
+        </div>
       ) : (
         <Spinner />
       )}
-    </div>
+    </>
   );
 };
 

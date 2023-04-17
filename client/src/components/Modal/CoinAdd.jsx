@@ -10,7 +10,6 @@ import "../../components/Auth/auth.css";
 
 const CoinAdd = () => {
   const editMyCoin = useSelector((state) => state.coin.editMyCoin);
-  const _id = useSelector((state) => state.coin.coin._id);
   const isEdit = useSelector((state) => state.coin.editCoin);
   const categories = useSelector((state) => state.category.categories);
   const { editModal } = useSelector((state) => state.modal);
@@ -89,7 +88,7 @@ const CoinAdd = () => {
 
   return (
     <div className="w-full h-screen bg-opacity-50 bg-black fixed top-0 left-0 right-0 bottom-0 z-50 flex justify-center items-center">
-      <div className="bg-white w-3/4 p-10 rounded-md">
+      <div className="bg-white w-[100%] md:w-3/4 h-screen lg:h-auto p-10 rounded-md">
         <div
           onClick={closeModal}
           className="flex justify-between items-center cursor-pointer"
@@ -268,13 +267,13 @@ const CoinAdd = () => {
             <div className="flex justify-around ">
               <button
                 type="submit"
-                className="border rounded-md border-violet-600 cursor-pointer transition-all text-sm py-4 px-12 hover:bg-violet-800 p-2 text-sm text-center bg-violet-600 text-white"
+                className="border rounded-md border-violet-600 cursor-pointer transition-all text-sm py-4 px-12 hover:bg-violet-800 p-2 text-center bg-violet-600 text-white"
               >
                 Save
               </button>
               <div
                 onClick={closeModal}
-                className="border rounded-md border-gray-500 cursor-pointer text-sm py-4 px-12 transition-all hover:bg-gray-700 p-2  text-sm text-center bg-gray-500 text-white"
+                className="border rounded-md border-gray-500 cursor-pointer text-sm py-4 px-12 transition-all hover:bg-gray-700 p-2 text-center bg-gray-500 text-white"
               >
                 Cancel
               </div>

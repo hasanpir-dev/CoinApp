@@ -19,7 +19,6 @@ const Register = ({}) => {
   const dispatch = useDispatch();
   useEffect(() => {
     if (success) navigate("/");
-    // redirect authenticated user to profile screen
     if (name) navigate("/");
   }, [navigate, name, success]);
 
@@ -49,7 +48,7 @@ const Register = ({}) => {
       className="w-full h-screen bg-opacity-50 bg-black flex items-center justify-center fixed top-0 right-0 bottom-0 left-0 z-50"
       // className="w-full h-screen bg-gray-100 flex items-center justify-center fixed top-0 right-0 bottom-0 left-0 z-50 "
     >
-      <div className="w-1/3 bg-white p-3 rounded-md">
+      <div className="md:w-7/12 lg:w-1/3 w-full bg-white p-3 rounded-md">
         <div
           onClick={() => {
             dispatch(changeSignUpModal(false));

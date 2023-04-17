@@ -66,7 +66,6 @@ export const editCoin = createAsyncThunk(
       toast.success("You have edited coin.", {
         position: "top-left",
       });
-      console.log(data);
       return data;
     } catch (error) {
       if (error.response && error.response.data.message) {

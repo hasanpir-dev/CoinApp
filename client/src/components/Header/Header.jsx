@@ -34,7 +34,7 @@ const Header = () => {
     <div className="h-20 bg-violet-600 flex items-center justify-between px-5">
       <div
         onClick={() => navigate("/")}
-        className="text-white font-bold text-2xl cursor-pointer"
+        className="hidden sm:inline-block text-white font-bold text-2xl cursor-pointer"
       >
         Coin Social App
       </div>

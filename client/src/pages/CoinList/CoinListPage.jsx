@@ -15,17 +15,18 @@ const CoinListPage = () => {
   const coins = id ? coinsByCategorySate : alLCoinsState;
   const { categories } = useSelector((state) => state.category);
   const category = categories.find((category) => category._id === id);
-  console.log(category?.title, category?.description);
 
+  //flex items-center flex-wrap
+  //flex flex-col items-center justify-center
   return (
     <>
-      <div className="p-12 w-[1280px] m-auto">
+      <div className="p-12 container lg:mx-auto">
         <Serach />
         <div className="flex flex-col items-center justify-center">
           <h3 className="text-2xl font-medium py-5">{category?.title}</h3>
           <p className="indent-6 ">{category?.description}</p>
         </div>
-        <div className="flex items-center py-12 flex-wrap">
+        <div className="grid lg:grid-cols-2 py-12">
           {loading ? (
             <Spinner />
           ) : (
