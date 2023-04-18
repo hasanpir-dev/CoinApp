@@ -88,7 +88,7 @@ const CoinAdd = () => {
 
   return (
     <div className="w-full h-screen bg-opacity-50 bg-black fixed top-0 left-0 right-0 bottom-0 z-50 flex justify-center items-center">
-      <div className="bg-white w-[100%] md:w-3/4 h-screen lg:h-auto p-10 rounded-md">
+      <div className="bg-white w-[100%] md:w-3/4 lg:h-auto p-10 rounded-md">
         <div
           onClick={closeModal}
           className="flex justify-between items-center cursor-pointer"
@@ -98,8 +98,8 @@ const CoinAdd = () => {
         </div>
         <form
           onSubmit={handleSubmit}
-          className="my-4 flex sm:flex-col lg:flex-row
-        h-96"
+          className="my-4 flex xs:flex-col lg:flex-row
+        h-96 overflow-y-scroll"
         >
           <div className="flex flex-col w-full mr-8 justify-between ">
             <input

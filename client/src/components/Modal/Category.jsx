@@ -64,10 +64,10 @@ const CategoryModal = () => {
             />
           </div>
 
-          <div className="flex justify-between ">
+          <div className="flex justify-between flex-col md:flex-row ">
             <div
               onClick={onSubmitFn}
-              className="border rounded-md border-violet-600 cursor-pointer text-sm py-4 px-12 hover:bg-violet-800 transition-all p-2 text-sm text-center bg-violet-600 text-white"
+              className="border rounded-md border-violet-600 cursor-pointer py-4 px-12 hover:bg-violet-800 transition-all p-2 text-sm text-center bg-violet-600 text-white"
             >
               Save
             </div>

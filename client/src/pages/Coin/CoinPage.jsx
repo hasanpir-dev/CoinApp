@@ -104,8 +104,8 @@ const CoinPage = () => {
   return (
     <>
       {coin ? (
-        <div className="flex justify-center py-12 sm:flex-col md:flex-row container mx-auto">
-          <div className="flex px-7 sm:flex-row md:flex-col">
+        <div className="flex justify-center py-12 xs:flex-col md:flex-row container mx-auto">
+          <div className="flex px-7 xs:flex-row md:flex-col">
             <div
               className="flex mb-7"
               style={{
